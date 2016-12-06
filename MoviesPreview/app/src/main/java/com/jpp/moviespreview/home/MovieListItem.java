@@ -2,24 +2,24 @@ package com.jpp.moviespreview.home;
 
 import android.support.annotation.NonNull;
 
-import com.jpp.moviespreview.core.adapter.ListItemHolder;
-import com.jpp.moviespreview.entity.MovieDto;
+import com.jpp.moviespreview.core.adapter.ItemHolder;
+import com.jpp.moviespreview.core.entity.MovieDto;
 
 /**
  * Created by jpperetti on 3/12/16.
  */
 
-public class MovieListItem extends ListItemHolder<MovieDto> {
+public class MovieListItem extends ItemHolder<MovieDto> {
 
 
     private final String mPosterUrl;
     private final String mGenres;
     private final String mPopularity;
 
-    public MovieListItem(@NonNull MovieDto model,
-                         @NonNull String posterUrl,
-                         @NonNull String genres,
-                         @NonNull String popularity) {
+    /*package*/ MovieListItem(@NonNull MovieDto model,
+                              @NonNull String posterUrl,
+                              @NonNull String genres,
+                              @NonNull String popularity) {
         super(model);
         this.mPosterUrl = posterUrl;
         this.mGenres = genres;

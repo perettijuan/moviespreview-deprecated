@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.entity;
+package com.jpp.moviespreview.core.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

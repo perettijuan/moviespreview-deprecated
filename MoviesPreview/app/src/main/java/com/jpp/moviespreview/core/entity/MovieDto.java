@@ -1,4 +1,7 @@
-package com.jpp.moviespreview.entity;
+package com.jpp.moviespreview.core.entity;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * <p>
  * Created by jpperetti on 12/2/16.
  */
-public class MovieDto {
+public class MovieDto implements Parcelable {
 
     @Expose
     @SerializedName("genre_ids")
@@ -83,4 +86,49 @@ public class MovieDto {
         return mVoteCount;
     }
 
+
+    //-- parcelable implementation
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeIntArray(this.mGenreIds);
+        dest.writeLong(this.mId);
+        dest.writeString(this.mTitle);
+        dest.writeFloat(this.mPopularity);
+        dest.writeString(this.mReleaseDate);
+        dest.writeString(this.mPosterPath);
+        dest.writeString(this.mOverview);
+        dest.writeFloat(this.mVoteAverage);
+        dest.writeLong(this.mVoteCount);
+    }
+
+    public MovieDto() {
+    }
+
+    private MovieDto(Parcel in) {
+        this.mGenreIds = in.createIntArray();
+        this.mId = in.readLong();
+        this.mTitle = in.readString();
+        this.mPopularity = in.readFloat();
+        this.mReleaseDate = in.readString();
+        this.mPosterPath = in.readString();
+        this.mOverview = in.readString();
+        this.mVoteAverage = in.readFloat();
+        this.mVoteCount = in.readLong();
+    }
+
+    public static final Creator<MovieDto> CREATOR = new Creator<MovieDto>() {
+        public MovieDto createFromParcel(Parcel source) {
+            return new MovieDto(source);
+        }
+
+        public MovieDto[] newArray(int size) {
+            return new MovieDto[size];
+        }
+    };
 }

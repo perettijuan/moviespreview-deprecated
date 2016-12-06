@@ -80,9 +80,11 @@ public abstract class BasePresenterActivity<V extends PresentingView, T extends 
     // --- flow step
 
     @Override
-    public void executeNextStep(@NonNull Intent intent) {
+    public void executeNextStep(@NonNull Intent intent, boolean maintainCurrent) {
         startActivity(intent);
-        finish();
+        if (!maintainCurrent) {
+            finish();
+        }
     }
 
 

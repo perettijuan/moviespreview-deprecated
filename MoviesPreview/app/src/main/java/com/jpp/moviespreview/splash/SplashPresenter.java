@@ -6,7 +6,7 @@ import com.jpp.moviespreview.BuildConfig;
 import com.jpp.moviespreview.R;
 import com.jpp.moviespreview.core.mvp.BasePresenter;
 import com.jpp.moviespreview.core.mvp.BasePresenterCommand;
-import com.jpp.moviespreview.entity.RemoteConfigurationDto;
+import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

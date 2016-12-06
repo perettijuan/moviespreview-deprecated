@@ -6,9 +6,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.jpp.moviespreview.R;
 import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
+import com.jpp.moviespreview.core.util.RecyclerViewItemClickListener;
 import com.jpp.moviespreview.home.adapter.MoviesRecyclerViewAdapter;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     @InjectView(R.id.rv_movies)
     RecyclerView rvMovies;
 
+    private MoviesRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         ButterKnife.inject(this);
         prepareSwipeView();
         setSupportActionBar(tbMainScreen);
+        prepareRecyclerView();
     }
 
 
@@ -57,6 +61,18 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         });
     }
 
+
+    private void prepareRecyclerView() {
+        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        rvMovies.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onRecyclerViewItemClick(@NonNull RecyclerView parent, @NonNull View view, int adapterPosition, long id) {
+                getPresenter().onMovieItemSelected(adapter.getItemAtPosition(adapterPosition));
+            }
+        }));
+        adapter = new MoviesRecyclerViewAdapter();
+        rvMovies.setAdapter(adapter);
+    }
 
     //-- presenter
 
@@ -83,10 +99,7 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     @Override
     public void showMoviesPage(@NonNull List<MovieListItem> page) {
         swipeRefreshLayout.setRefreshing(false);
-        MoviesRecyclerViewAdapter adapter = new MoviesRecyclerViewAdapter();
         adapter.swipeData(page);
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
-        rvMovies.setAdapter(adapter);
     }
 
 

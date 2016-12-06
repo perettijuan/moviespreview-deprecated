@@ -1,9 +1,9 @@
 package com.jpp.moviespreview.core.network;
 
 
-import com.jpp.moviespreview.entity.MovieGenrePage;
-import com.jpp.moviespreview.entity.MoviePageDto;
-import com.jpp.moviespreview.entity.RemoteConfigurationDto;
+import com.jpp.moviespreview.core.entity.MovieGenrePage;
+import com.jpp.moviespreview.core.entity.MoviePageDto;
+import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;

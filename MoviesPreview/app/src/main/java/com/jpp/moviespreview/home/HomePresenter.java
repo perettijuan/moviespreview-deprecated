@@ -4,13 +4,13 @@ import android.support.annotation.NonNull;
 
 import com.jpp.moviespreview.BuildConfig;
 import com.jpp.moviespreview.R;
+import com.jpp.moviespreview.core.entity.ImagesConfigurationDto;
+import com.jpp.moviespreview.core.entity.MovieDto;
+import com.jpp.moviespreview.core.entity.MovieGenrePage;
+import com.jpp.moviespreview.core.entity.MoviePageDto;
 import com.jpp.moviespreview.core.mvp.BasePresenter;
 import com.jpp.moviespreview.core.mvp.BasePresenterCommand;
-import com.jpp.moviespreview.entity.ImagesConfigurationDto;
-import com.jpp.moviespreview.entity.MovieDto;
-import com.jpp.moviespreview.entity.MovieGenreDto;
-import com.jpp.moviespreview.entity.MovieGenrePage;
-import com.jpp.moviespreview.entity.MoviePageDto;
+import com.jpp.moviespreview.preview.PreviewInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,6 @@ import rx.schedulers.Schedulers;
 
     private Subscriber<Object> mSubscriber;
     private MoviePageDto mCurrentPage;
-    private MovieGenrePage mMovieGenrePage;
 
     @Override
     protected void linkView(@NonNull HomeView view) {
@@ -58,7 +57,7 @@ import rx.schedulers.Schedulers;
                     @Override
                     public Object call(MovieGenrePage movieGenrePage, MoviePageDto pageDto) {
                         mCurrentPage = pageDto;
-                        mMovieGenrePage = movieGenrePage;
+                        getContext().setMovieGenres(movieGenrePage);
                         return null;
                     }
                 })
@@ -73,7 +72,7 @@ import rx.schedulers.Schedulers;
         for (MovieDto movie : movies) {
             String posterUrl = imagesConfiguration.getPosterImageBaseUrl()
                     + imagesConfiguration.getDefaultPosterSize() + movie.getPosterPath();
-            String genres = getGenresById(movie.getGenreIds());
+            String genres = getContext().getGenresById(movie.getGenreIds());
             String popularity = getView().getApplicationContext().getString(R.string.popularity,
                     String.valueOf(movie.getPopularity()));
             MovieListItem item = new MovieListItem(movie, posterUrl, genres, popularity);
@@ -83,17 +82,9 @@ import rx.schedulers.Schedulers;
     }
 
 
-    //TODO improve this to avoid for concatenation
-    private String getGenresById(int[] ids) {
-        StringBuilder sb = new StringBuilder();
-        for (Integer id : ids) {
-            for (MovieGenreDto genre : mMovieGenrePage.getMovieGenres()) {
-                if (genre.getId() == id) {
-                    sb.append(" ").append(genre.getName());
-                }
-            }
-        }
-        return sb.toString();
+    /*package*/ void onMovieItemSelected(@NonNull MovieListItem listItem) {
+        PreviewInput previewInput = new PreviewInput(listItem.getModel());
+        getFlowResolverInstance().goToMoviePreview(getContext(), getView(), previewInput);
     }
 
 

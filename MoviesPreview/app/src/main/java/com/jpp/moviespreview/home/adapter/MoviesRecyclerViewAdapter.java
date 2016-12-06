@@ -28,6 +28,7 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
     public void swipeData(@NonNull List<MovieListItem> data) {
         mData = data;
+        notifyItemRangeChanged(0, getItemCount());
     }
 
     @Override
@@ -49,6 +50,10 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
             count = mData.size();
         }
         return count;
+    }
+
+    public MovieListItem getItemAtPosition(int position) {
+        return mData.get(position);
     }
 
 

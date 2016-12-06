@@ -24,7 +24,7 @@
             android:scaleType="centerCrop"
             fresco:actualImageScaleType="fitXY"
             fresco:placeholderImage="@drawable/ic_image_place_holder"
-            fresco:placeholderImageScaleType="fitXY"/>
+            fresco:placeholderImageScaleType="fitXY" />
 
         <TextView
             android:id="@+id/txt_movie_title"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/txt_movie_title"
-            android:background="#7986CB"
+            android:background="@color/movie_popularity_background"
             android:orientation="horizontal">
 
             <TextView
@@ -79,12 +79,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_movie_title"
+            android:background="@color/movie_popularity_background"
             android:ellipsize="end"
             android:maxLines="2"
             android:padding="6dp"
             android:text="GENRE"
-            android:textColor="@android:color/black"
-            android:background="#7986CB"/>
+            android:textColor="@android:color/black" />
 
 
     </RelativeLayout>

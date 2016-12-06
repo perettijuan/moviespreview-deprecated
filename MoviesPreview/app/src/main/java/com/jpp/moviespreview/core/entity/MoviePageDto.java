@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.entity;
+package com.jpp.moviespreview.core.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
