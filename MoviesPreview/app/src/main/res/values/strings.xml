@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Movies Preview</string>
+
+    <!-- Generic -->
+    <string name="generic_error">Ups. Something went wrong!</string>
+    <string name="generic_retry">Retry</string>
+
+
+    <!-- Movies list -->
+    <string name="popularity">Popularity: %1$s</string>
 </resources>
