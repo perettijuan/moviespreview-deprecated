@@ -10,7 +10,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -37,7 +36,6 @@ public class RestModule {
     Retrofit retrofitProvider(@Named("endpointApi") String baseUrl) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(baseUrl)
                 .build();
     }

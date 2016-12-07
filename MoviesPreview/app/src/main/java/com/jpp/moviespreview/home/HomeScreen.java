@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewScrollEvent;
+import com.jakewharton.rxbinding.support.v7.widget.RxRecyclerView;
 import com.jpp.moviespreview.R;
 import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
 import com.jpp.moviespreview.core.util.RecyclerViewItemClickListener;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import rx.Observable;
 
 /**
  * Activity for the home screen.
@@ -34,7 +37,9 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     @InjectView(R.id.rv_movies)
     RecyclerView rvMovies;
 
-    private MoviesRecyclerViewAdapter adapter;
+    private MoviesRecyclerViewAdapter mRecyclerAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private int mTotalItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +68,16 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
 
     private void prepareRecyclerView() {
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        mLayoutManager = new LinearLayoutManager(this);
+        rvMovies.setLayoutManager(mLayoutManager);
         rvMovies.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
             @Override
             public void onRecyclerViewItemClick(@NonNull RecyclerView parent, @NonNull View view, int adapterPosition, long id) {
-                getPresenter().onMovieItemSelected(adapter.getItemAtPosition(adapterPosition));
+                getPresenter().onMovieItemSelected(mRecyclerAdapter.getItemAtPosition(adapterPosition));
             }
         }));
-        adapter = new MoviesRecyclerViewAdapter();
-        rvMovies.setAdapter(adapter);
+        mRecyclerAdapter = new MoviesRecyclerViewAdapter();
+        rvMovies.setAdapter(mRecyclerAdapter);
     }
 
     //-- presenter
@@ -98,8 +104,25 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
     @Override
     public void showMoviesPage(@NonNull List<MovieListItem> page) {
-        swipeRefreshLayout.setRefreshing(false);
-        adapter.swipeData(page);
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
+        mRecyclerAdapter.swipeData(page);
+        mTotalItemCount = mRecyclerAdapter.getItemCount();
+    }
+
+    @Override
+    @NonNull
+    public Observable<RecyclerViewScrollEvent> getScrollingObservable() {
+        return RxRecyclerView.scrollEvents(rvMovies);
+    }
+
+    @Override
+    public boolean shouldLoadNewPage(int offset) {
+        int visibleItemCount = mLayoutManager.getChildCount();
+        int pastVisibleItems = mLayoutManager.findFirstVisibleItemPosition();
+        return ((visibleItemCount + pastVisibleItems) >= (mTotalItemCount - offset));
     }
 
 

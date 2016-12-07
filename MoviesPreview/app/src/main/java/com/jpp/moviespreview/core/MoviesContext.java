@@ -36,6 +36,10 @@ public class MoviesContext implements Parcelable {
         this.mRemoteConfiguration = mRemoteConfiguration;
     }
 
+    @Nullable
+    public MovieGenrePage getGenresPage() {
+        return mMovieGenres;
+    }
 
     public void setMovieGenres(@NonNull MovieGenrePage mMovieGenres) {
         this.mMovieGenres = mMovieGenres;

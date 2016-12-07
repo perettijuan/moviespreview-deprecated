@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import com.jpp.moviespreview.core.DaggerDiComponent;
 import com.jpp.moviespreview.core.DiComponent;
 import com.jpp.moviespreview.core.MoviesContext;
+import com.jpp.moviespreview.core.UtilityWrapper;
 import com.jpp.moviespreview.core.flow.FlowModule;
 import com.jpp.moviespreview.core.flow.FlowResolver;
 import com.jpp.moviespreview.core.network.MoviesPreviewApi;
@@ -23,7 +24,7 @@ public class BasePresenter<T extends PresentingView> {
 
     private WeakReference<T> viewRef;
 
-    private PresenterUtilityWrapper utilityWrapper;
+    private UtilityWrapper utilityWrapper;
 
     private MoviesContext mContext;
 
@@ -37,7 +38,7 @@ public class BasePresenter<T extends PresentingView> {
         this.viewRef = new WeakReference<>(view);
 
         // inject the members every time the presenter is linked
-        utilityWrapper = new PresenterUtilityWrapper();
+        utilityWrapper = new UtilityWrapper();
         DiComponent component = DaggerDiComponent.builder()
                 .restModule(new RestModule())
                 .flowModule(new FlowModule())
@@ -92,7 +93,7 @@ public class BasePresenter<T extends PresentingView> {
      * @return - the instance of MoviesPreviewApi to be used by the presenter
      */
     protected MoviesPreviewApi getApiInstance() {
-        return utilityWrapper.api;
+        return utilityWrapper.getApiInstance();
     }
 
 
@@ -100,7 +101,7 @@ public class BasePresenter<T extends PresentingView> {
      * @return - the instance of FlowResolver to be used by the presenter.
      */
     protected FlowResolver getFlowResolverInstance() {
-        return utilityWrapper.flowResolver;
+        return utilityWrapper.getFlowResolver();
     }
 
 

@@ -1,7 +1,6 @@
 package com.jpp.moviespreview.core;
 
 import com.jpp.moviespreview.core.flow.FlowModule;
-import com.jpp.moviespreview.core.mvp.PresenterUtilityWrapper;
 import com.jpp.moviespreview.core.network.RestModule;
 
 import javax.inject.Singleton;
@@ -18,6 +17,6 @@ import dagger.Component;
 @Component(modules = {RestModule.class, FlowModule.class})
 public interface DiComponent {
 
-    void inject(PresenterUtilityWrapper wrapper);
+    void inject(UtilityWrapper wrapper);
 
 }

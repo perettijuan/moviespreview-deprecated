@@ -27,8 +27,9 @@ public class MoviesRecyclerViewAdapter extends RecyclerView.Adapter<MoviesRecycl
 
 
     public void swipeData(@NonNull List<MovieListItem> data) {
+        int currentSize = getItemCount();
         mData = data;
-        notifyItemRangeChanged(0, getItemCount());
+        notifyItemRangeChanged(currentSize, getItemCount());
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.jpp.moviespreview.core.entity.MovieGenrePage;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
 import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -24,7 +25,7 @@ public interface MoviesPreviewApi {
      * @return - an Observable with the response from the server.
      */
     @GET("configuration")
-    Observable<RemoteConfigurationDto> configurations(@Query("api_key") String apiKey);
+    Call<RemoteConfigurationDto> configurations(@Query("api_key") String apiKey);
 
 
     /**
@@ -35,7 +36,7 @@ public interface MoviesPreviewApi {
      * @return - an Observable with the response from the server.
      */
     @GET("movie/top_rated")
-    Observable<MoviePageDto> topRated(@Query("page") String page, @Query("api_key") String apiKey);
+    Call<MoviePageDto> topRated(@Query("page") int page, @Query("api_key") String apiKey);
 
 
     /**
@@ -45,7 +46,7 @@ public interface MoviesPreviewApi {
      * @return - an Observable with the response from the server.
      */
     @GET("genre/movie/list")
-    Observable<MovieGenrePage> genres(@Query("api_key") String apiKey);
+    Call<MovieGenrePage> genres(@Query("api_key") String apiKey);
 
 
 }

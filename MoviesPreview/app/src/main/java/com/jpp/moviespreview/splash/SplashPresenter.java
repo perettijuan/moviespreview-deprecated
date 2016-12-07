@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.jpp.moviespreview.BuildConfig;
 import com.jpp.moviespreview.R;
+import com.jpp.moviespreview.core.interactors.UseCaseObserver;
 import com.jpp.moviespreview.core.mvp.BasePresenter;
 import com.jpp.moviespreview.core.mvp.BasePresenterCommand;
 import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
+import com.jpp.moviespreview.splash.interactors.RemoteConfigurationUseCase;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -19,7 +21,7 @@ import rx.schedulers.Schedulers;
  */
 /* default */ class SplashPresenter extends BasePresenter<SplashView> {
 
-    private Subscriber<RemoteConfigurationDto> mSubscriber;
+    private UseCaseObserver<RemoteConfigurationDto> mSubscriber;
 
 
     @Override
@@ -27,7 +29,7 @@ import rx.schedulers.Schedulers;
         super.linkView(view);
         if (getContext().getRemoteConfiguration() != null) {
             getFlowResolverInstance().goToMainScreen(getContext(), getView());
-        } else if (mSubscriber == null || mSubscriber.isUnsubscribed()) {
+        } else if (mSubscriber == null) {
             retrieveRemoteConfig();
         }
     }
@@ -35,23 +37,18 @@ import rx.schedulers.Schedulers;
 
     private void retrieveRemoteConfig() {
         mSubscriber = new RemoteConfigurationRetriever();
-        getApiInstance().configurations(BuildConfig.API_KEY)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(mSubscriber);
+        new RemoteConfigurationUseCase().execute(null, mSubscriber);
     }
 
 
     /**
      * {@link Subscriber} implementation to handle the {@link RemoteConfigurationDto} retrieval process.
      */
-    private class RemoteConfigurationRetriever extends Subscriber<RemoteConfigurationDto> {
+    private class RemoteConfigurationRetriever implements UseCaseObserver<RemoteConfigurationDto> {
 
         @Override
-        public void onCompleted() {
-            if (isViewLinked()) {
-                getFlowResolverInstance().goToMainScreen(getContext(), getView());
-            }
+        public void onDataProcessed(RemoteConfigurationDto data) {
+            getContext().setRemoteConfiguration(data);
         }
 
         @Override
@@ -62,8 +59,10 @@ import rx.schedulers.Schedulers;
         }
 
         @Override
-        public void onNext(RemoteConfigurationDto remoteConfigurationDto) {
-            getContext().setRemoteConfiguration(remoteConfigurationDto);
+        public void onProcessDone() {
+            if (isViewLinked()) {
+                getFlowResolverInstance().goToMainScreen(getContext(), getView());
+            }
         }
     }
 
