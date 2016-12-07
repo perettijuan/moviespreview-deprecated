@@ -35,7 +35,7 @@ public interface MoviesPreviewApi {
      * @param apiKey - the api key to use in the authentication process.
      * @return - an Observable with the response from the server.
      */
-    @GET("movie/top_rated")
+    @GET("discover/movie?sort_by=popularity.desc")
     Call<MoviePageDto> topRated(@Query("page") int page, @Query("api_key") String apiKey);
 
 
