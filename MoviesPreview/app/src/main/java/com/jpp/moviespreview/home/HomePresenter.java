@@ -49,6 +49,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
      * Retrieve the first page of the movie list.
      */
     private void retrieveFirstPage() {
+        getView().performInitialAnimations();
         getView().showLoading();
         if (mUseCase == null) {
             UseCase.getDependencyInyectionComponent().inject(this);

@@ -17,6 +17,8 @@ import rx.Observable;
 public interface HomeView extends PresentingView {
 
 
+    void performInitialAnimations();
+
     /**
      * Shows the loading UI.
      */

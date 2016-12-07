@@ -11,11 +11,16 @@ import android.view.View;
 import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewScrollEvent;
 import com.jakewharton.rxbinding.support.v7.widget.RxRecyclerView;
 import com.jpp.moviespreview.R;
+import com.jpp.moviespreview.core.animations.AnimationDiComponent;
+import com.jpp.moviespreview.core.animations.DaggerAnimationDiComponent;
+import com.jpp.moviespreview.core.animations.SplashAnimation;
 import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
 import com.jpp.moviespreview.core.util.RecyclerViewItemClickListener;
 import com.jpp.moviespreview.home.adapter.MoviesRecyclerViewAdapter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,6 +41,10 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
     @InjectView(R.id.rv_movies)
     RecyclerView rvMovies;
+
+
+    @Inject
+    SplashAnimation splashAnimation;
 
     private MoviesRecyclerViewAdapter mRecyclerAdapter;
     private LinearLayoutManager mLayoutManager;
@@ -96,6 +105,15 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
 
     //-- HomeView
+
+    @Override
+    public void performInitialAnimations() {
+        AnimationDiComponent animationDiComponent = DaggerAnimationDiComponent.builder()
+                .animationModule(new AnimationDiComponent.AnimationModule())
+                .build();
+        animationDiComponent.injectAnimations(this);
+        splashAnimation.animateView(findViewById(R.id.splash_view));
+    }
 
     @Override
     public void showLoading() {

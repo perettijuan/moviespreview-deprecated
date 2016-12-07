@@ -20,6 +20,9 @@ public class SplashScreen extends BasePresenterActivity<SplashView, SplashPresen
         Fresco.initialize(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
+
+        // override it to perform initial animation
+        overridePendingTransition(0, 0);
     }
 
     @NonNull
