@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.home.interactors;
+package com.jpp.moviespreview.core.interactors;
 
 import android.support.annotation.NonNull;
 
@@ -6,7 +6,6 @@ import com.jpp.moviespreview.BuildConfig;
 import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.core.entity.MovieGenrePage;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
-import com.jpp.moviespreview.core.interactors.UseCase;
 
 import java.io.IOException;
 
@@ -15,9 +14,11 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
+ * UseCase that retrieves the top rated movies.
+ * <p>
  * Created by jpperetti on 6/12/16.
  */
-public class GetMoviePageUseCase extends UseCase<MoviesContext, MoviePageDto> {
+/*package*/ class TopRatedMoviesUseCase extends UseCase<MoviesContext, MoviePageDto> {
 
     private int mCurrentPage = 0;
 

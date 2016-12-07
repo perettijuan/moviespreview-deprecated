@@ -2,27 +2,28 @@ package com.jpp.moviespreview.splash;
 
 import android.support.annotation.NonNull;
 
-import com.jpp.moviespreview.BuildConfig;
 import com.jpp.moviespreview.R;
+import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
+import com.jpp.moviespreview.core.interactors.UseCase;
 import com.jpp.moviespreview.core.interactors.UseCaseObserver;
 import com.jpp.moviespreview.core.mvp.BasePresenter;
 import com.jpp.moviespreview.core.mvp.BasePresenterCommand;
-import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
-import com.jpp.moviespreview.splash.interactors.RemoteConfigurationUseCase;
+
+import javax.inject.Inject;
 
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Presenter for the splash screen.
  * <p>
  * Created by jpperetti on 15/2/16.
  */
-/* default */ class SplashPresenter extends BasePresenter<SplashView> {
+public class SplashPresenter extends BasePresenter<SplashView> {
 
     private UseCaseObserver<RemoteConfigurationDto> mSubscriber;
 
+    @Inject
+    UseCase<Void, RemoteConfigurationDto> useCase;
 
     @Override
     protected void linkView(@NonNull SplashView view) {
@@ -37,7 +38,8 @@ import rx.schedulers.Schedulers;
 
     private void retrieveRemoteConfig() {
         mSubscriber = new RemoteConfigurationRetriever();
-        new RemoteConfigurationUseCase().execute(null, mSubscriber);
+        UseCase.getDependencyInyectionComponent().inject(this);
+        useCase.execute(null, mSubscriber);
     }
 
 

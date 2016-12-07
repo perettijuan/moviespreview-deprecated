@@ -30,10 +30,11 @@ public abstract class UseCase<Param, Response> {
     private Subscription mSubscription = Subscriptions.empty();
 
 
+    // Instance of UtilityWrapper to access the common elements.
     private UtilityWrapper utilityWrapper;
 
 
-    public UseCase() {
+    /*package*/ UseCase() {
         // inject the members every time the presenter is linked
         utilityWrapper = new UtilityWrapper();
         DiComponent component = DaggerDiComponent.builder()
@@ -79,7 +80,7 @@ public abstract class UseCase<Param, Response> {
     /**
      * @return - the instance of MoviesPreviewApi to be used by the presenter
      */
-    protected MoviesPreviewApi getApiInstance() {
+    /*package*/ MoviesPreviewApi getApiInstance() {
         return utilityWrapper.getApiInstance();
     }
 
@@ -92,6 +93,19 @@ public abstract class UseCase<Param, Response> {
      */
     @NonNull
     protected abstract Observable<Response> buildObservableUseCase(Param param);
+
+
+    /**
+     * Creates and returns the instance of {@link InteractorDiComponent} that performs
+     * the injection of UseCase implementations into the presenter layer.
+     *
+     * @return - the instance of {@link InteractorDiComponent} to be used.
+     */
+    public static InteractorDiComponent getDependencyInyectionComponent() {
+        return DaggerInteractorDiComponent.builder()
+                .useCaseModule(new UseCaseModule())
+                .build();
+    }
 
 
 }

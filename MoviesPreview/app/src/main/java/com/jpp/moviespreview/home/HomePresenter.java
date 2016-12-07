@@ -4,17 +4,20 @@ import android.support.annotation.NonNull;
 
 import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewScrollEvent;
 import com.jpp.moviespreview.R;
+import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.core.entity.ImagesConfigurationDto;
 import com.jpp.moviespreview.core.entity.MovieDto;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
+import com.jpp.moviespreview.core.interactors.UseCase;
 import com.jpp.moviespreview.core.interactors.UseCaseObserver;
 import com.jpp.moviespreview.core.mvp.BasePresenter;
 import com.jpp.moviespreview.core.mvp.BasePresenterCommand;
-import com.jpp.moviespreview.home.interactors.GetMoviePageUseCase;
 import com.jpp.moviespreview.preview.PreviewInput;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -25,10 +28,11 @@ import rx.android.schedulers.AndroidSchedulers;
  * <p>
  * Created by jpperetti on 15/2/16.
  */
-/* default */ class HomePresenter extends BasePresenter<HomeView> {
+public class HomePresenter extends BasePresenter<HomeView> {
 
     private List<MovieListItem> mMovieListItems;
-    private GetMoviePageUseCase mUseCase;
+    @Inject
+    UseCase<MoviesContext, MoviePageDto> mUseCase;
 
     @Override
     protected void linkView(@NonNull HomeView view) {
@@ -47,7 +51,7 @@ import rx.android.schedulers.AndroidSchedulers;
     private void retrieveFirstPage() {
         getView().showLoading();
         if (mUseCase == null) {
-            mUseCase = new GetMoviePageUseCase();
+            UseCase.getDependencyInyectionComponent().inject(this);
         }
 
         if (mMovieListItems == null) {

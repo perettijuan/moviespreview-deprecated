@@ -1,10 +1,9 @@
-package com.jpp.moviespreview.splash.interactors;
+package com.jpp.moviespreview.core.interactors;
 
 import android.support.annotation.NonNull;
 
 import com.jpp.moviespreview.BuildConfig;
 import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
-import com.jpp.moviespreview.core.interactors.UseCase;
 
 import java.io.IOException;
 
@@ -14,10 +13,11 @@ import rx.Observable;
 import rx.Subscriber;
 
 /**
+ * UseCase to retrieve the RemoteConfigurationDto from the server.
+ * <p>
  * Created by jpperetti on 6/12/16.
  */
-
-public class RemoteConfigurationUseCase extends UseCase<Void, RemoteConfigurationDto> {
+/*default*/ class RemoteConfigurationUseCase extends UseCase<Void, RemoteConfigurationDto> {
     @NonNull
     @Override
     protected Observable<RemoteConfigurationDto> buildObservableUseCase(Void aVoid) {
