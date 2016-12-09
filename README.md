@@ -7,7 +7,7 @@ The main goal of this repository is to practice new techinques and libraries in 
 in order to evaluate how factible they are in a productive environment.
 
 ## App behavior
-[You can see the app behavior in this YouTube video](https://youtu.be/auH-uHLxwrk)
+[You can see the app behavior in this YouTube video](https://youtu.be/mc2fXjdLhOI)
 
 ## Cool ideas to test
 
