@@ -12,6 +12,7 @@ import com.jpp.moviespreview.core.interactors.UseCase;
 import com.jpp.moviespreview.core.interactors.UseCaseObserver;
 import com.jpp.moviespreview.core.mvp.BasePresenter;
 import com.jpp.moviespreview.core.mvp.BasePresenterCommand;
+import com.jpp.moviespreview.home.delegate.HomePresenterDelegate;
 import com.jpp.moviespreview.preview.PreviewInput;
 
 import java.util.ArrayList;
@@ -30,13 +31,25 @@ import rx.android.schedulers.AndroidSchedulers;
  */
 public class HomePresenter extends BasePresenter<HomeView> {
 
-    private List<MovieListItem> mMovieListItems;
     @Inject
     UseCase<MoviesContext, MoviePageDto> mUseCase;
+
+    private final HomePresenterDelegate mHomePresenterDelegate;
+    private ScrollingListener mScrollingListener;
+
+    private List<MovieListItem> mMovieListItems;
+
+
+    /*package*/ HomePresenter() {
+        mHomePresenterDelegate = new HomePresenterDelegate();
+    }
 
     @Override
     protected void linkView(@NonNull HomeView view) {
         super.linkView(view);
+
+        mHomePresenterDelegate.linkView(view, getContext());
+
         if (mUseCase == null) {
             retrieveFirstPage();
         } else {
@@ -51,14 +64,13 @@ public class HomePresenter extends BasePresenter<HomeView> {
     private void retrieveFirstPage() {
         getView().performInitialAnimations();
         getView().showLoading();
-        if (mUseCase == null) {
-            UseCase.getDependencyInyectionComponent().inject(this);
-        }
+        UseCase.getDependencyInyectionComponent().inject(this);
 
-        if (mMovieListItems == null) {
-            mMovieListItems = new ArrayList<>();
-        }
 
+        if(mScrollingListener != null) {
+            mScrollingListener.unsubscribe();
+        }
+        mMovieListItems = new ArrayList<>();
         mUseCase.execute(getContext(), new GetMoviesUseCaseObserver());
     }
 
@@ -93,30 +105,19 @@ public class HomePresenter extends BasePresenter<HomeView> {
         getFlowResolverInstance().goToMoviePreview(getContext(), getView(), previewInput);
     }
 
+    /*package*/ void onHomeMenuItemSelected(@NonNull HomeMenuListItem selected, @NonNull List<HomeMenuListItem> items) {
+        mHomePresenterDelegate.onItemSelected(selected, items, getView());
+        retrieveFirstPage();
+    }
+
 
     /**
      * Load the observable that will "listen" for scrolling events.
      */
     private void loadScrollListener(Observable<RecyclerViewScrollEvent> observable) {
+        mScrollingListener = new ScrollingListener();
         observable.subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<RecyclerViewScrollEvent>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(RecyclerViewScrollEvent recyclerViewScrollEvent) {
-                        if (isViewLinked() && getView().shouldLoadNewPage(5)) {
-                            mUseCase.execute(getContext(), new GetMoviesUseCaseObserver());
-                            unsubscribe();
-                        }
-                    }
-                });
+                .subscribe(mScrollingListener);
     }
 
 
@@ -157,4 +158,25 @@ public class HomePresenter extends BasePresenter<HomeView> {
         }
     }
 
+
+    private class ScrollingListener extends Subscriber<RecyclerViewScrollEvent> {
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(RecyclerViewScrollEvent recyclerViewScrollEvent) {
+            if (isViewLinked() && getView().shouldLoadNewPage(5)) {
+                mUseCase.execute(getContext(), new GetMoviesUseCaseObserver());
+                unsubscribe();
+            }
+        }
+    }
 }
+
+

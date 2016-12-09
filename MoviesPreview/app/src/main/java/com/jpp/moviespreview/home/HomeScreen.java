@@ -1,11 +1,17 @@
 package com.jpp.moviespreview.home;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewScrollEvent;
@@ -16,6 +22,7 @@ import com.jpp.moviespreview.core.animations.DaggerAnimationDiComponent;
 import com.jpp.moviespreview.core.animations.SplashAnimation;
 import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
 import com.jpp.moviespreview.core.util.RecyclerViewItemClickListener;
+import com.jpp.moviespreview.home.adapter.HomeMenuRecyclerViewAdapter;
 import com.jpp.moviespreview.home.adapter.MoviesRecyclerViewAdapter;
 
 import java.util.List;
@@ -42,6 +49,11 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     @InjectView(R.id.rv_movies)
     RecyclerView rvMovies;
 
+    @InjectView(R.id.rv_home_menu)
+    RecyclerView rvHomeMenu;
+
+    @InjectView(R.id.drw_home)
+    DrawerLayout drwHome;
 
     @Inject
     SplashAnimation splashAnimation;
@@ -49,6 +61,9 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     private MoviesRecyclerViewAdapter mRecyclerAdapter;
     private LinearLayoutManager mLayoutManager;
     private int mTotalItemCount;
+
+    private HomeMenuRecyclerViewAdapter mMenuAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +73,7 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         prepareSwipeView();
         setSupportActionBar(tbMainScreen);
         prepareRecyclerView();
+        prepareDrawer();
     }
 
 
@@ -77,6 +93,20 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
 
     private void prepareRecyclerView() {
+        // menu first
+        rvHomeMenu.setLayoutManager(new LinearLayoutManager(this));
+        rvHomeMenu.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onRecyclerViewItemClick(@NonNull RecyclerView parent, @NonNull View view, int adapterPosition, long id) {
+                getPresenter().onHomeMenuItemSelected(mMenuAdapter.getItemAtPosition(adapterPosition), mMenuAdapter.getData());
+                drwHome.closeDrawer(Gravity.LEFT);
+            }
+        }));
+        mMenuAdapter = new HomeMenuRecyclerViewAdapter();
+        rvHomeMenu.setAdapter(mMenuAdapter);
+
+
+        // movies then
         mLayoutManager = new LinearLayoutManager(this);
         rvMovies.setLayoutManager(mLayoutManager);
         rvMovies.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
@@ -87,6 +117,40 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         }));
         mRecyclerAdapter = new MoviesRecyclerViewAdapter();
         rvMovies.setAdapter(mRecyclerAdapter);
+    }
+
+
+    private void prepareDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, drwHome, R.string.app_name, R.string.app_name);
+        drwHome.addDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
     }
 
     //-- presenter
@@ -131,6 +195,12 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     }
 
     @Override
+    public void clearPage() {
+        mRecyclerAdapter.clear();
+        mTotalItemCount = 0;
+    }
+
+    @Override
     @NonNull
     public Observable<RecyclerViewScrollEvent> getScrollingObservable() {
         return RxRecyclerView.scrollEvents(rvMovies);
@@ -143,5 +213,13 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         return ((visibleItemCount + pastVisibleItems) >= (mTotalItemCount - offset));
     }
 
+    @Override
+    public void showHomeMenu(@NonNull List<HomeMenuListItem> items) {
+        mMenuAdapter.updateData(items);
+    }
+
+    public void setTitle(@StringRes int title) {
+        getSupportActionBar().setTitle(title);
+    }
 
 }

@@ -9,8 +9,10 @@ import android.util.SparseArray;
 import com.jpp.moviespreview.core.entity.MovieGenreDto;
 import com.jpp.moviespreview.core.entity.MovieGenrePage;
 import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
+import com.jpp.moviespreview.core.flow.sections.ApplicationSection;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Utility class that holds all the information related to the context of the application
@@ -23,6 +25,7 @@ public class MoviesContext implements Parcelable {
 
     private RemoteConfigurationDto mRemoteConfiguration;
     private MovieGenrePage mMovieGenres;
+    private List<ApplicationSection> mSections;
 
     private SparseArray<MovieGenreDto> movieGenresMap;
 
@@ -43,6 +46,15 @@ public class MoviesContext implements Parcelable {
 
     public void setMovieGenres(@NonNull MovieGenrePage mMovieGenres) {
         this.mMovieGenres = mMovieGenres;
+    }
+
+    @Nullable
+    public List<ApplicationSection> getSections() {
+        return mSections;
+    }
+
+    public void setSections(@NonNull List<ApplicationSection> sections) {
+        this.mSections = sections;
     }
 
 
@@ -89,6 +101,7 @@ public class MoviesContext implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.mRemoteConfiguration, 0);
         dest.writeParcelable(this.mMovieGenres, 0);
+        dest.writeTypedList(mSections);
     }
 
     public MoviesContext() {
@@ -97,6 +110,8 @@ public class MoviesContext implements Parcelable {
     private MoviesContext(Parcel in) {
         this.mRemoteConfiguration = in.readParcelable(RemoteConfigurationDto.class.getClassLoader());
         this.mMovieGenres = in.readParcelable(MovieGenrePage.class.getClassLoader());
+        mSections = new ArrayList<>();
+        in.readTypedList(mSections, ApplicationSection.CREATOR);
     }
 
     public static final Creator<MoviesContext> CREATOR = new Creator<MoviesContext>() {

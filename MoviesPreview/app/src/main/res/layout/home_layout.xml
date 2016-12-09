@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_screen_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C5CAE9">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Toolbar as the ActionBar-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_main_screen"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_main_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_movies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/splash_view"
+        layout="@layout/splash_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -6,12 +6,16 @@ import com.jpp.moviespreview.BuildConfig;
 import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.core.entity.MovieGenrePage;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
+import com.jpp.moviespreview.core.flow.sections.ApplicationSection;
 
 import java.io.IOException;
 
 import retrofit2.Call;
 import rx.Observable;
 import rx.Subscriber;
+
+import static com.jpp.moviespreview.core.flow.sections.ApplicationSection.SectionType.IN_THEATRE;
+import static com.jpp.moviespreview.core.flow.sections.ApplicationSection.SectionType.MOST_POPULAR;
 
 /**
  * UseCase that retrieves the top rated movies.
@@ -43,7 +47,16 @@ import rx.Subscriber;
                     //update page
                     mCurrentPage++;
 
-                    Call<MoviePageDto> movieCall = getApiInstance().topRated(mCurrentPage, BuildConfig.API_KEY);
+                    ApplicationSection selectedSection = null;
+                    for (ApplicationSection section : moviesContext.getSections()) {
+                        if (section.isSelected()) {
+                            selectedSection = section;
+                            break;
+                        }
+                    }
+
+
+                    Call<MoviePageDto> movieCall = getApiCallForSection(selectedSection);
                     MoviePageDto moviePage = movieCall.execute().body();
                     if (moviePage != null) {
                         subscriber.onNext(moviePage);
@@ -57,5 +70,20 @@ import rx.Subscriber;
 
             }
         });
+    }
+
+
+    private Call<MoviePageDto> getApiCallForSection(ApplicationSection section) {
+        @ApplicationSection.SectionType int type = section.getType();
+        Call<MoviePageDto> call = null;
+        switch (type) {
+            case MOST_POPULAR:
+                call = getApiInstance().topRated(mCurrentPage, BuildConfig.API_KEY);
+                break;
+            case IN_THEATRE:
+                call = getApiInstance().nowPlaying(mCurrentPage, BuildConfig.API_KEY);
+                break;
+        }
+        return call;
     }
 }

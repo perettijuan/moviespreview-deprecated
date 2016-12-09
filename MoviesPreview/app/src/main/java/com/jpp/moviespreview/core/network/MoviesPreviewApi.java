@@ -8,7 +8,6 @@ import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Interface that defines the signature of the API to access.
@@ -38,6 +37,16 @@ public interface MoviesPreviewApi {
     @GET("discover/movie?sort_by=popularity.desc")
     Call<MoviePageDto> topRated(@Query("page") int page, @Query("api_key") String apiKey);
 
+
+    /**
+     * Retrieve the of movies currently in theatres.
+     *
+     * @param page   - the page to retrieve.
+     * @param apiKey - the api key to use in the authentication process.
+     * @return - an Observable with the response from the server.
+     */
+    @GET("movie/now_playing")
+    Call<MoviePageDto> nowPlaying(@Query("page") int page, @Query("api_key") String apiKey);
 
     /**
      * Retrieve a page that contains all the movies genres.

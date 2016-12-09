@@ -6,6 +6,11 @@
     <string name="generic_retry">Retry</string>
 
 
+    <!-- Sections -->
+    <string name="section_most_popular">Most Popular</string>
+    <string name="section_in_theatre">In Theatres</string>
+
+
     <!-- Movies list -->
     <string name="popularity">Popularity: %1$s</string>
 </resources>

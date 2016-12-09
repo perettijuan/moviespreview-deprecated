@@ -1,6 +1,7 @@
 package com.jpp.moviespreview.home;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 
 import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewScrollEvent;
 import com.jpp.moviespreview.core.mvp.PresentingView;
@@ -29,6 +30,10 @@ public interface HomeView extends PresentingView {
      */
     void showMoviesPage(@NonNull List<MovieListItem> page);
 
+    /**
+     * Clears the currently shown page.
+     */
+    void clearPage();
 
     /**
      * @return - an Observable that can be used to detect scrolling on the screen.
@@ -45,4 +50,20 @@ public interface HomeView extends PresentingView {
      * @return - true if new page should be loaded, false any other case.
      */
     boolean shouldLoadNewPage(int offset);
+
+
+    /**
+     * Shows the list of possible selection in the home screen
+     *
+     * @param items - the items to show.
+     */
+    void showHomeMenu(@NonNull List<HomeMenuListItem> items);
+
+
+    /**
+     * Sets the title of the screen.
+     *
+     * @param title - the resource identifier for the title.
+     */
+    void setTitle(@StringRes int title);
 }

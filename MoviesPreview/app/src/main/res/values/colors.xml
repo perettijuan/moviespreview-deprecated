@@ -7,4 +7,7 @@
 
     <color name="movie_detail_background">#fafafa</color>
     <color name="movie_popularity_background">#7986CB</color>
+
+    <color name="gray_light_1">#cecece</color>
+    <color name="gray_light_2">#303F9F</color>
 </resources>
