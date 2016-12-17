@@ -186,6 +186,11 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
     @Override
     public void showMoviesPage(@NonNull List<MovieListItem> page) {
+        if(findViewById(R.id.splash_view).getVisibility() == View.VISIBLE) {
+            findViewById(R.id.splash_view).setVisibility(View.GONE);
+        }
+
+
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
