@@ -9,6 +9,12 @@
         <!-- This removes the action bar and prepares the layout to use the Toolbar -->
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@android:color/black</item>
     </style>
 
 
@@ -30,6 +36,12 @@
     <style name="Title.collapsed" parent="Title">
         <item name="android:textSize">@dimen/abc_text_size_title_material_toolbar</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style for the search bar -->
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#a0000000</item>
     </style>
 
 

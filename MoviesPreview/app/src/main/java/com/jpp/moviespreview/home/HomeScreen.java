@@ -55,6 +55,9 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     @InjectView(R.id.drw_home)
     DrawerLayout drwHome;
 
+    @InjectView(R.id.tb_main_screen_search)
+    HomeToolbar tbMainScreenSearch;
+
     @Inject
     SplashAnimation splashAnimation;
 
@@ -74,6 +77,8 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         setSupportActionBar(tbMainScreen);
         prepareRecyclerView();
         prepareDrawer();
+
+        tbMainScreenSearch.setTitle(R.string.search_movies);
     }
 
 
@@ -148,10 +153,10 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        // Handle your other action bar items...
 
         return super.onOptionsItemSelected(item);
     }
+
 
     //-- presenter
 
@@ -186,7 +191,7 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
     @Override
     public void showMoviesPage(@NonNull List<MovieListItem> page) {
-        if(findViewById(R.id.splash_view).getVisibility() == View.VISIBLE) {
+        if (findViewById(R.id.splash_view).getVisibility() == View.VISIBLE) {
             findViewById(R.id.splash_view).setVisibility(View.GONE);
         }
 

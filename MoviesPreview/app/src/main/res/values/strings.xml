@@ -13,4 +13,7 @@
 
     <!-- Movies list -->
     <string name="popularity">Popularity: %1$s</string>
+
+    <!-- Search -->
+    <string name="search_movies">Type to search a movie</string>
 </resources>
