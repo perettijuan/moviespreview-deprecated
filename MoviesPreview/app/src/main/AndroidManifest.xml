@@ -19,7 +19,9 @@
 
         <activity android:name=".home.HomeScreen" />
         <activity android:name=".preview.MoviePreviewScreen" />
-        <activity android:name=".search.SearchScreen"/>
+        <activity
+            android:name=".search.SearchScreen"
+            android:windowSoftInputMode="stateVisible" />
 
     </application>
 

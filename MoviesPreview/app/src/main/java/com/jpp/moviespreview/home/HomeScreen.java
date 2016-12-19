@@ -24,6 +24,7 @@ import com.jpp.moviespreview.core.animations.AnimationDiComponent;
 import com.jpp.moviespreview.core.animations.DaggerAnimationDiComponent;
 import com.jpp.moviespreview.core.animations.SplashAnimation;
 import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
+import com.jpp.moviespreview.core.toolbar.FadeInToolbarTransition;
 import com.jpp.moviespreview.core.toolbar.FadeOutToolbarTransition;
 import com.jpp.moviespreview.core.toolbar.SimpleTransitionListener;
 import com.jpp.moviespreview.core.util.RecyclerViewItemClickListener;
@@ -82,58 +83,13 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         setSupportActionBar(tbMainScreen);
         prepareRecyclerView();
         prepareDrawer();
-        setupSearchToolbar();
+        prepareSearchToolbar();
     }
 
-
-    /**
-     * Fix the problem of the Swipe view not showing the first time.
-     * Source: http://stackoverflow.com/questions/26858692/swiperefreshlayout-setrefreshing-not-showing-indicator-initially
-     */
-    private void prepareSwipeView() {
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //TODO
-            }
-        });
-    }
-
-
-    private void prepareRecyclerView() {
-        // menu first
-        rvHomeMenu.setLayoutManager(new LinearLayoutManager(this));
-        rvHomeMenu.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onRecyclerViewItemClick(@NonNull RecyclerView parent, @NonNull View view, int adapterPosition, long id) {
-                getPresenter().onHomeMenuItemSelected(mMenuAdapter.getItemAtPosition(adapterPosition), mMenuAdapter.getData());
-                drwHome.closeDrawer(Gravity.LEFT);
-            }
-        }));
-        mMenuAdapter = new HomeMenuRecyclerViewAdapter();
-        rvHomeMenu.setAdapter(mMenuAdapter);
-
-
-        // movies then
-        mLayoutManager = new LinearLayoutManager(this);
-        rvMovies.setLayoutManager(mLayoutManager);
-        rvMovies.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onRecyclerViewItemClick(@NonNull RecyclerView parent, @NonNull View view, int adapterPosition, long id) {
-                getPresenter().onMovieItemSelected(mRecyclerAdapter.getItemAtPosition(adapterPosition));
-            }
-        }));
-        mRecyclerAdapter = new MoviesRecyclerViewAdapter();
-        rvMovies.setAdapter(mRecyclerAdapter);
-    }
-
-
-    private void prepareDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, drwHome, R.string.app_name, R.string.app_name);
-        drwHome.addDrawerListener(mDrawerToggle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fadeToolbarIn();
     }
 
 
@@ -162,7 +118,68 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
     }
 
 
-    private void setupSearchToolbar() {
+    //-- prepare
+
+    /**
+     * Fix the problem of the Swipe view not showing the first time.
+     * Source: http://stackoverflow.com/questions/26858692/swiperefreshlayout-setrefreshing-not-showing-indicator-initially
+     */
+    private void prepareSwipeView() {
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //TODO
+            }
+        });
+    }
+
+
+    /**
+     * Prepares the recycler views shown in the home screen.
+     */
+    private void prepareRecyclerView() {
+        // menu first
+        rvHomeMenu.setLayoutManager(new LinearLayoutManager(this));
+        rvHomeMenu.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onRecyclerViewItemClick(@NonNull RecyclerView parent, @NonNull View view, int adapterPosition, long id) {
+                getPresenter().onHomeMenuItemSelected(mMenuAdapter.getItemAtPosition(adapterPosition), mMenuAdapter.getData());
+                drwHome.closeDrawer(Gravity.LEFT);
+            }
+        }));
+        mMenuAdapter = new HomeMenuRecyclerViewAdapter();
+        rvHomeMenu.setAdapter(mMenuAdapter);
+
+
+        // movies then
+        mLayoutManager = new LinearLayoutManager(this);
+        rvMovies.setLayoutManager(mLayoutManager);
+        rvMovies.addOnItemTouchListener(new RecyclerViewItemClickListener(this, new RecyclerViewItemClickListener.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onRecyclerViewItemClick(@NonNull RecyclerView parent, @NonNull View view, int adapterPosition, long id) {
+                getPresenter().onMovieItemSelected(mRecyclerAdapter.getItemAtPosition(adapterPosition));
+            }
+        }));
+        mRecyclerAdapter = new MoviesRecyclerViewAdapter();
+        rvMovies.setAdapter(mRecyclerAdapter);
+    }
+
+
+    /**
+     * Prepares the drawer that shows the home menu.
+     */
+    private void prepareDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, drwHome, R.string.app_name, R.string.app_name);
+        drwHome.addDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    /**
+     * Prepares the search toolbar.
+     */
+    private void prepareSearchToolbar() {
         tbMainScreenSearch.setTitle(R.string.search_movies);
         tbMainScreenSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,6 +188,23 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
                 transitionToSearch();
             }
         });
+    }
+
+
+    //-- Transitions
+
+    /**
+     * Perform the transition to show the toolbar.
+     */
+    private void fadeToolbarIn() {
+        TransitionManager.beginDelayedTransition(tbMainScreenSearch, FadeInToolbarTransition.createTransition());
+        LinearLayout.LayoutParams searchLayoutParams = (LinearLayout.LayoutParams) tbMainScreenSearch.getLayoutParams();
+        int toolbarMargin = getResources().getDimensionPixelSize(R.dimen.search_toolbar_margin);
+        searchLayoutParams.setMargins(toolbarMargin, toolbarMargin, toolbarMargin, toolbarMargin);
+        tbMainScreenSearch.showContent();
+        tbMainScreenSearch.setLayoutParams(searchLayoutParams);
+        tbMainScreen.setVisibility(View.VISIBLE);
+        rvMovies.setVisibility(View.VISIBLE);
     }
 
 
@@ -185,6 +219,7 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         tbMainScreenSearch.setLayoutParams(searchLayoutParams);
         tbMainScreenSearch.hideContent();
         tbMainScreen.setVisibility(View.GONE);
+        rvMovies.setVisibility(View.GONE);
     }
 
 
