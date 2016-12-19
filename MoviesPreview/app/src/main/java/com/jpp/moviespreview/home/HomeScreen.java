@@ -4,6 +4,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.transition.Transition;
+import android.support.transition.TransitionManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewScrollEvent;
 import com.jakewharton.rxbinding.support.v7.widget.RxRecyclerView;
@@ -21,6 +24,8 @@ import com.jpp.moviespreview.core.animations.AnimationDiComponent;
 import com.jpp.moviespreview.core.animations.DaggerAnimationDiComponent;
 import com.jpp.moviespreview.core.animations.SplashAnimation;
 import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
+import com.jpp.moviespreview.core.toolbar.FadeOutToolbarTransition;
+import com.jpp.moviespreview.core.toolbar.SimpleTransitionListener;
 import com.jpp.moviespreview.core.util.RecyclerViewItemClickListener;
 import com.jpp.moviespreview.home.adapter.HomeMenuRecyclerViewAdapter;
 import com.jpp.moviespreview.home.adapter.MoviesRecyclerViewAdapter;
@@ -77,8 +82,7 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         setSupportActionBar(tbMainScreen);
         prepareRecyclerView();
         prepareDrawer();
-
-        tbMainScreenSearch.setTitle(R.string.search_movies);
+        setupSearchToolbar();
     }
 
 
@@ -155,6 +159,47 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void setupSearchToolbar() {
+        tbMainScreenSearch.setTitle(R.string.search_movies);
+        tbMainScreenSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showKeyboard();
+                transitionToSearch();
+            }
+        });
+    }
+
+
+    /**
+     * Perform the transition to the search view.
+     */
+    private void transitionToSearch() {
+        Transition transition = FadeOutToolbarTransition.withAction(fadeoutTransitionListener());
+        TransitionManager.beginDelayedTransition(tbMainScreenSearch, transition);
+        LinearLayout.LayoutParams searchLayoutParams = (LinearLayout.LayoutParams) tbMainScreenSearch.getLayoutParams();
+        searchLayoutParams.setMargins(0, 0, 0, 0);
+        tbMainScreenSearch.setLayoutParams(searchLayoutParams);
+        tbMainScreenSearch.hideContent();
+        tbMainScreen.setVisibility(View.GONE);
+    }
+
+
+    /**
+     * Create a TransitionListener to handle the transition effect.
+     */
+    private Transition.TransitionListener fadeoutTransitionListener() {
+        return new SimpleTransitionListener() {
+            @Override
+            public void onTransitionEnd(Transition transition) {
+                getPresenter().onSearchActionSelected();
+                // to avoid natural animation.
+                overridePendingTransition(0, 0);
+            }
+        };
     }
 
 

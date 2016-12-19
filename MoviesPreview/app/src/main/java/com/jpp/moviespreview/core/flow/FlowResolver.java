@@ -7,6 +7,7 @@ import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.home.HomeScreen;
 import com.jpp.moviespreview.preview.MoviePreviewScreen;
 import com.jpp.moviespreview.preview.PreviewInput;
+import com.jpp.moviespreview.search.SearchScreen;
 
 /**
  * Resolves the flow in the application.
@@ -40,6 +41,19 @@ public class FlowResolver {
         Intent intent = new Intent(executor.getApplicationContext(), MoviePreviewScreen.class);
         intent.putExtra(MoviesContext.EXTRA_KEY, context);
         input.attachInputToIntent(intent);
+        executor.executeNextStep(intent, true);
+    }
+
+
+    /**
+     * Executes the step that heads the flow to the search flow.
+     *
+     * @param context  - the MoviesContext in the application.
+     * @param executor - the FlowStepExecutor that will actually execute the next step.
+     */
+    public void goToSearch(@NonNull MoviesContext context, @NonNull FlowStepExecutor executor) {
+        Intent intent = new Intent(executor.getApplicationContext(), SearchScreen.class);
+        intent.putExtra(MoviesContext.EXTRA_KEY, context);
         executor.executeNextStep(intent, true);
     }
 

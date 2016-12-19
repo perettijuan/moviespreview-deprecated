@@ -67,7 +67,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
         UseCase.getDependencyInyectionComponent().inject(this);
 
 
-        if(mScrollingListener != null) {
+        if (mScrollingListener != null) {
             mScrollingListener.unsubscribe();
         }
         mMovieListItems = new ArrayList<>();
@@ -105,9 +105,23 @@ public class HomePresenter extends BasePresenter<HomeView> {
         getFlowResolverInstance().goToMoviePreview(getContext(), getView(), previewInput);
     }
 
+    /**
+     * Called when an item is selected in the home menu.
+     *
+     * @param selected - the selected item.
+     * @param items    - the list of all items.
+     */
     /*package*/ void onHomeMenuItemSelected(@NonNull HomeMenuListItem selected, @NonNull List<HomeMenuListItem> items) {
         mHomePresenterDelegate.onItemSelected(selected, items, getView());
         retrieveFirstPage();
+    }
+
+
+    /**
+     * Called when the search action is selected in the home screen
+     */
+    /*package*/ void onSearchActionSelected() {
+        getFlowResolverInstance().goToSearch(getContext(), getView());
     }
 
 

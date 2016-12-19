@@ -19,6 +19,7 @@
 
         <activity android:name=".home.HomeScreen" />
         <activity android:name=".preview.MoviePreviewScreen" />
+        <activity android:name=".search.SearchScreen"/>
 
     </application>
 
