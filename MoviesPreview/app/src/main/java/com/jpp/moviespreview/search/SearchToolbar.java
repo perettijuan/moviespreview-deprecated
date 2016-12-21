@@ -22,7 +22,7 @@ public class SearchToolbar extends TransformingToolbar {
 
     public SearchToolbar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setBackgroundColor(context.getResources().getColor(android.R.color.white));
+        setBackgroundResource(R.drawable.search_box_background);
         setNavigationIcon(R.drawable.ic_action_back);
     }
 

@@ -17,7 +17,7 @@ public class HomeToolbar extends TransformingToolbar {
 
     public HomeToolbar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setBackgroundColor(context.getResources().getColor(android.R.color.white));
+        setBackgroundResource(R.drawable.search_box_background);
         setNavigationIcon(R.drawable.ic_action_search);
     }
 }
