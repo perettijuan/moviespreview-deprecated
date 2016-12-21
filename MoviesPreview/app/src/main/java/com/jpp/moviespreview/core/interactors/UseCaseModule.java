@@ -2,7 +2,6 @@ package com.jpp.moviespreview.core.interactors;
 
 import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
-import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,20 +17,20 @@ import dagger.Provides;
 
 
     /**
-     * @return - the instance of UseCase that responds to the parameters.
-     */
-    @Provides
-    UseCase<Void, RemoteConfigurationDto> remoteConfiguration() {
-        return new RemoteConfigurationUseCase();
-    }
-
-
-    /**
      * @return - the instance of UseCase to retrieve the top rated movies.
      */
     @Provides
     UseCase<MoviesContext, MoviePageDto> topRatedMovies() {
         return new TopRatedMoviesUseCase();
+    }
+
+
+    /**
+     * @return - the instance of UseCase that completes the application context.
+     */
+    @Provides
+    UseCase<MoviesContext, MoviesContext> completeContext() {
+        return new CompleteContextUseCase();
     }
 
 }

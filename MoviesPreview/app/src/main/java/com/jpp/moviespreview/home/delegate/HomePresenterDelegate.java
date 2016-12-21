@@ -22,12 +22,6 @@ public class HomePresenterDelegate implements PresenterDelegate<HomeView> {
 
     @Override
     public void linkView(@NonNull HomeView view, @NonNull MoviesContext context) {
-
-        if (context.getSections() == null || context.getSections().isEmpty()) {
-            // first time -> setup
-            context.setSections(ApplicationSection.newInstance());
-        }
-
         List<HomeMenuListItem> items = getHomeMenuList(context.getSections());
         view.showHomeMenu(items);
         view.setTitle(getSelectedSectionName(items));
@@ -44,7 +38,7 @@ public class HomePresenterDelegate implements PresenterDelegate<HomeView> {
             @StringRes int name = -1;
             for (HomeMenuListItem item : items) {
                 item.getModel().toggleSelected();
-                if(item.isSelected()) {
+                if (item.isSelected()) {
                     name = item.getTitle();
                 }
             }
