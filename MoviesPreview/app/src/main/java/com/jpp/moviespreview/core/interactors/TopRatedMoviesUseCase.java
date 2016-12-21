@@ -33,17 +33,6 @@ import static com.jpp.moviespreview.core.flow.sections.ApplicationSection.Sectio
             @Override
             public void call(Subscriber<? super MoviePageDto> subscriber) {
                 try {
-                    // first, verify if context is completed
-                    if (moviesContext.getGenresPage() == null) {
-                        Call<MovieGenrePage> genresCall = getApiInstance().genres(BuildConfig.API_KEY);
-                        MovieGenrePage genres = genresCall.execute().body();
-                        if (genres != null) {
-                            moviesContext.setMovieGenres(genres);
-                        } else {
-                            subscriber.onError(new Exception("Impossible to retrieve movie genres"));
-                        }
-                    }
-
                     //update page
                     mCurrentPage++;
 

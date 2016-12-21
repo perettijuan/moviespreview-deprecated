@@ -3,6 +3,7 @@ package com.jpp.moviespreview.splash;
 import android.support.annotation.NonNull;
 
 import com.jpp.moviespreview.R;
+import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
 import com.jpp.moviespreview.core.interactors.UseCase;
 import com.jpp.moviespreview.core.interactors.UseCaseObserver;
@@ -20,10 +21,10 @@ import rx.Subscriber;
  */
 public class SplashPresenter extends BasePresenter<SplashView> {
 
-    private UseCaseObserver<RemoteConfigurationDto> mSubscriber;
+    private UseCaseObserver<MoviesContext> mSubscriber;
 
     @Inject
-    UseCase<Void, RemoteConfigurationDto> useCase;
+    UseCase<MoviesContext, MoviesContext> useCase;
 
     @Override
     protected void linkView(@NonNull SplashView view) {
@@ -37,24 +38,21 @@ public class SplashPresenter extends BasePresenter<SplashView> {
 
 
     private void retrieveRemoteConfig() {
-        mSubscriber = new RemoteConfigurationRetriever();
+        mSubscriber = new CompleteContextCallback();
         UseCase.getDependencyInyectionComponent().inject(this);
-        useCase.execute(null, mSubscriber);
+        useCase.execute(getContext(), mSubscriber);
     }
 
 
-    /**
-     * {@link Subscriber} implementation to handle the {@link RemoteConfigurationDto} retrieval process.
-     */
-    private class RemoteConfigurationRetriever implements UseCaseObserver<RemoteConfigurationDto> {
+    private class CompleteContextCallback implements UseCaseObserver<MoviesContext> {
 
         @Override
-        public void onDataProcessed(RemoteConfigurationDto data) {
-            getContext().setRemoteConfiguration(data);
+        public void onDataProcessed(MoviesContext data) {
+            //DO NOTHING
         }
 
         @Override
-        public void onError(Throwable e) {
+        public void onError(Throwable error) {
             if (isViewLinked()) {
                 getView().showSnackbarError(R.string.generic_error, R.string.generic_retry, new RetryActionCommand());
             }
