@@ -4,10 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.jakewharton.rxbinding.support.v7.widget.RecyclerViewScrollEvent;
 import com.jpp.moviespreview.R;
-import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.core.entity.ImagesConfigurationDto;
 import com.jpp.moviespreview.core.entity.MovieDto;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
+import com.jpp.moviespreview.core.flow.sections.ApplicationSection;
 import com.jpp.moviespreview.core.interactors.UseCase;
 import com.jpp.moviespreview.core.interactors.UseCaseObserver;
 import com.jpp.moviespreview.core.mvp.BasePresenter;
@@ -32,7 +32,7 @@ import rx.android.schedulers.AndroidSchedulers;
 public class HomePresenter extends BasePresenter<HomeView> {
 
     @Inject
-    UseCase<MoviesContext, MoviePageDto> mUseCase;
+    UseCase<ApplicationSection, MoviePageDto> mUseCase;
 
     private final HomePresenterDelegate mHomePresenterDelegate;
     private ScrollingListener mScrollingListener;
@@ -67,11 +67,23 @@ public class HomePresenter extends BasePresenter<HomeView> {
         UseCase.getDependencyInyectionComponent().inject(this);
 
 
-        if(mScrollingListener != null) {
+        if (mScrollingListener != null) {
             mScrollingListener.unsubscribe();
         }
         mMovieListItems = new ArrayList<>();
-        mUseCase.execute(getContext(), new GetMoviesUseCaseObserver());
+        mUseCase.execute(getSelectedSection(), new GetMoviesUseCaseObserver());
+    }
+
+
+    private ApplicationSection getSelectedSection() {
+        ApplicationSection selectedSection = null;
+        for (ApplicationSection section : getContext().getSections()) {
+            if (section.isSelected()) {
+                selectedSection = section;
+                break;
+            }
+        }
+        return selectedSection;
     }
 
 
@@ -172,7 +184,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
         @Override
         public void onNext(RecyclerViewScrollEvent recyclerViewScrollEvent) {
             if (isViewLinked() && getView().shouldLoadNewPage(5)) {
-                mUseCase.execute(getContext(), new GetMoviesUseCaseObserver());
+                mUseCase.execute(getSelectedSection(), new GetMoviesUseCaseObserver());
                 unsubscribe();
             }
         }
