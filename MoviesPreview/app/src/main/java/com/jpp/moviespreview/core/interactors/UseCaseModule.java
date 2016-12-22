@@ -2,6 +2,7 @@ package com.jpp.moviespreview.core.interactors;
 
 import com.jpp.moviespreview.core.MoviesContext;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
+import com.jpp.moviespreview.core.flow.sections.ApplicationSection;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,7 +21,7 @@ import dagger.Provides;
      * @return - the instance of UseCase to retrieve the top rated movies.
      */
     @Provides
-    UseCase<MoviesContext, MoviePageDto> topRatedMovies() {
+    UseCase<ApplicationSection, MoviePageDto> topRatedMovies() {
         return new TopRatedMoviesUseCase();
     }
 

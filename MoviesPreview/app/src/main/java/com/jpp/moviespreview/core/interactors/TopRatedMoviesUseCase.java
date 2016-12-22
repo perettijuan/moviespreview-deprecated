@@ -22,13 +22,13 @@ import static com.jpp.moviespreview.core.flow.sections.ApplicationSection.Sectio
  * <p>
  * Created by jpperetti on 6/12/16.
  */
-/*package*/ class TopRatedMoviesUseCase extends UseCase<MoviesContext, MoviePageDto> {
+/*package*/ class TopRatedMoviesUseCase extends UseCase<ApplicationSection, MoviePageDto> {
 
     private int mCurrentPage = 0;
 
     @NonNull
     @Override
-    protected Observable<MoviePageDto> buildObservableUseCase(final MoviesContext moviesContext) {
+    protected Observable<MoviePageDto> buildObservableUseCase(final ApplicationSection appSection) {
         return Observable.create(new Observable.OnSubscribe<MoviePageDto>() {
             @Override
             public void call(Subscriber<? super MoviePageDto> subscriber) {
@@ -36,16 +36,7 @@ import static com.jpp.moviespreview.core.flow.sections.ApplicationSection.Sectio
                     //update page
                     mCurrentPage++;
 
-                    ApplicationSection selectedSection = null;
-                    for (ApplicationSection section : moviesContext.getSections()) {
-                        if (section.isSelected()) {
-                            selectedSection = section;
-                            break;
-                        }
-                    }
-
-
-                    Call<MoviePageDto> movieCall = getApiCallForSection(selectedSection);
+                    Call<MoviePageDto> movieCall = getApiCallForSection(appSection);
                     MoviePageDto moviePage = movieCall.execute().body();
                     if (moviePage != null) {
                         subscriber.onNext(moviePage);
