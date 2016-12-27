@@ -16,4 +16,5 @@
 
     <!-- Search -->
     <string name="search_movies">Type to search a movie</string>
+    <string name="search_movies_no_movies">No movies found</string>
 </resources>

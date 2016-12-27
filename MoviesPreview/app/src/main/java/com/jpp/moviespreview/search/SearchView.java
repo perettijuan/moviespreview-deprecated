@@ -20,6 +20,12 @@ public interface SearchView extends PresentingView {
 
 
     /**
+     * Disimisses the loading view.
+     */
+    void dismissLoading();
+
+
+    /**
      * Shows the result of the search process.
      *
      * @param result - the List with the results.

@@ -158,10 +158,14 @@ public class SearchScreen extends BasePresenterActivity<SearchView, SearchPresen
     }
 
     @Override
-    public void showSearchResult(@NonNull List<SearchMovieListItem> result) {
-        rvAdapter.swipeData(result);
+    public void dismissLoading() {
         searchSuperloadingView.onStop();
         searchSuperloadingView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSearchResult(@NonNull List<SearchMovieListItem> result) {
+        rvAdapter.swipeData(result);
         rvSearchMovies.setVisibility(View.VISIBLE);
     }
 }

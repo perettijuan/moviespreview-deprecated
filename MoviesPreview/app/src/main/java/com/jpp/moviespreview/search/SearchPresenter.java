@@ -67,14 +67,20 @@ public class SearchPresenter extends BasePresenter<SearchView> implements UseCas
         if (isViewLinked()) {
             List<SearchMovieListItem> preparedPage = preparePage(data.getMovies());
             mMoviesListItems.addAll(preparedPage);
-            getView().showSearchResult(mMoviesListItems);
+            getView().dismissLoading();
+            if(mMoviesListItems.isEmpty()) {
+                getView().showSnackbarWarning(R.string.search_movies_no_movies);
+            } else {
+                getView().showSearchResult(mMoviesListItems);
+            }
         }
     }
 
     @Override
     public void onError(Throwable error) {
         if (isViewLinked()) {
-            getView().showSnackbarError(R.string.generic_error, 0, null);
+            getView().dismissLoading();
+            getView().showSnackbarError(R.string.generic_error);
         }
     }
 

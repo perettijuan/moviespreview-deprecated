@@ -117,6 +117,19 @@ public abstract class BasePresenterActivity<V extends PresentingView, T extends 
         snackbar.show();
     }
 
+    @Override
+    public void showSnackbarError(@StringRes int errorMessage) {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(errorMessage), Snackbar.LENGTH_LONG);
+        View backgroundView = snackbar.getView();
+        backgroundView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+        snackbar.show();
+    }
+
+    @Override
+    public void showSnackbarWarning(@StringRes int errorMessage) {
+        Snackbar.make(findViewById(android.R.id.content), getString(errorMessage), Snackbar.LENGTH_LONG).show();
+    }
+
 
     // --- Presenter
 
