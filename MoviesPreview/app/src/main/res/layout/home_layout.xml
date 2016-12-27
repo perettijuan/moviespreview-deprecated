@@ -24,7 +24,7 @@
         <com.jpp.moviespreview.home.HomeToolbar
             android:id="@+id/tb_main_screen_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/search_toolbar_height"
             android:layout_gravity="center"
             android:layout_margin="@dimen/search_toolbar_margin"
             android:elevation="8dp"

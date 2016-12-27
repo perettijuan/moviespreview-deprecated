@@ -53,6 +53,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
 
     // For rxAndroid
     compile 'io.reactivex:rxandroid:1.1.0'
@@ -66,4 +67,7 @@ dependencies {
 
     // ButterKnife to inject views
     compile 'com.jakewharton:butterknife:6.0.0'
+
+    // For constraint layouts
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 }

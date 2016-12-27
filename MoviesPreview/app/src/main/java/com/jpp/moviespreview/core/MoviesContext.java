@@ -71,7 +71,9 @@ public class MoviesContext implements Parcelable {
         StringBuilder sb = new StringBuilder();
         for (Integer id : ids) {
             MovieGenreDto genre = movieGenresMap.get(id);
-            sb.append(" ").append(genre.getName());
+            if(genre != null) {
+                sb.append(" ").append(genre.getName());
+            }
         }
 
         return sb.toString();

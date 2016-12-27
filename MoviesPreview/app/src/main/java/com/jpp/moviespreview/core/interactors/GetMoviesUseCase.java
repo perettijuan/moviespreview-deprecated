@@ -22,7 +22,7 @@ import static com.jpp.moviespreview.core.flow.sections.ApplicationSection.Sectio
  * <p>
  * Created by jpperetti on 6/12/16.
  */
-/*package*/ class TopRatedMoviesUseCase extends UseCase<ApplicationSection, MoviePageDto> {
+/*package*/ class GetMoviesUseCase extends UseCase<ApplicationSection, MoviePageDto> {
 
     private int mCurrentPage = 0;
 
@@ -38,10 +38,10 @@ import static com.jpp.moviespreview.core.flow.sections.ApplicationSection.Sectio
 
                     Call<MoviePageDto> movieCall = getApiCallForSection(appSection);
                     MoviePageDto moviePage = movieCall.execute().body();
-                    if (moviePage != null) {
-                        subscriber.onNext(moviePage);
-                    } else {
+                    if (moviePage == null) {
                         subscriber.onError(new Exception("Impossible to retrieve movies"));
+                    } else {
+                        subscriber.onNext(moviePage);
                     }
 
                 } catch (IOException e) {

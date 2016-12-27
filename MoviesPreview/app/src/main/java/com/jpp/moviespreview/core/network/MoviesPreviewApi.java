@@ -66,8 +66,9 @@ public interface MoviesPreviewApi {
      * @param includeAdult - true if adult rated movies should be included in the search, false any other case.
      * @return - a Call with the response from the server.
      */
-    @GET("search")
-    Call<MoviePageDto> search(@Query("api_key") String apiKey, @Query("query") String query, @Query("include_adult") boolean includeAdult);
+    @GET("search/movie")
+    Call<MoviePageDto> search(@Query("api_key") String apiKey, @Query("query") String query, @Query("page") int page,
+                              @Query("include_adult") boolean includeAdult);
 
 
 }

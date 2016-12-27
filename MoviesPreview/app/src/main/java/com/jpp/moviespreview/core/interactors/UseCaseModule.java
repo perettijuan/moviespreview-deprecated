@@ -22,7 +22,7 @@ import dagger.Provides;
      */
     @Provides
     UseCase<ApplicationSection, MoviePageDto> topRatedMovies() {
-        return new TopRatedMoviesUseCase();
+        return new GetMoviesUseCase();
     }
 
 
@@ -32,6 +32,15 @@ import dagger.Provides;
     @Provides
     UseCase<MoviesContext, MoviesContext> completeContext() {
         return new CompleteContextUseCase();
+    }
+
+
+    /**
+     * @return - the UseCase instance that can perform a search.
+     */
+    @Provides
+    UseCase<String, MoviePageDto> search() {
+        return new SearchMovieUseCase();
     }
 
 }

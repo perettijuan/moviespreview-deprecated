@@ -35,8 +35,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
     UseCase<ApplicationSection, MoviePageDto> mUseCase;
 
     private final HomePresenterDelegate mHomePresenterDelegate;
-    private ScrollingListener mScrollingListener;
 
+    private ScrollingListener mScrollingListener;
     private List<MovieListItem> mMovieListItems;
 
 
@@ -66,10 +66,10 @@ public class HomePresenter extends BasePresenter<HomeView> {
         getView().showLoading();
         UseCase.getDependencyInyectionComponent().inject(this);
 
-
         if (mScrollingListener != null) {
             mScrollingListener.unsubscribe();
         }
+
         mMovieListItems = new ArrayList<>();
         mUseCase.execute(getSelectedSection(), new GetMoviesUseCaseObserver());
     }

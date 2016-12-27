@@ -16,8 +16,32 @@ public class MoviePageDto {
     @SerializedName("results")
     private List<MovieDto> mResults;
 
+    @Expose
+    @SerializedName("page")
+    private int mPage;
+
+    @Expose
+    @SerializedName("total_results")
+    private long mTotalResults;
+
+    @Expose
+    @SerializedName("total_pages")
+    private long mTotalPages;
+
     public List<MovieDto> getMovies() {
         return mResults;
     }
 
+
+    public int getPage() {
+        return mPage;
+    }
+
+    public long getTotalResults() {
+        return mTotalResults;
+    }
+
+    public long getTotalPages() {
+        return mTotalPages;
+    }
 }
