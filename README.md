@@ -13,6 +13,12 @@ in order to evaluate how factible they are in a productive environment.
 
 Uses RxAndroid with [`RxBinding`](https://github.com/JakeWharton/RxBinding) to detect the scroll in a RecyclerView
 and request values to the API when a treshold is reached.
+This feature is implemented in `HomePresenter` and `HomeScreen.`
+
+### App menu
+![alt tag](https://github.com/perettijuan/moviespreview/blob/master/art/menu.gif)
+
+Uses a `DrawerLayout` with a `RecyclerView` in it to show the menu of the application.
 
 ## Cool ideas to test
 
