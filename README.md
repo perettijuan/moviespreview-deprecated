@@ -7,7 +7,12 @@ The main goal of this repository is to practice new techinques and libraries in 
 in order to evaluate how factible they are in a productive environment.
 
 ## App behavior
-[You can see the app behavior in this YouTube video](https://youtu.be/mc2fXjdLhOI)
+
+### Endless Scrolling
+![alt tag](https://github.com/perettijuan/moviespreview/blob/master/art/unlimited_scroll.gif)
+
+Uses RxAndroid with [`RxBinding`](https://github.com/JakeWharton/RxBinding) to detect the scroll in a RecyclerView
+and request values to the API when a treshold is reached.
 
 ## Cool ideas to test
 
@@ -20,9 +25,8 @@ How about using a Fragment to handle the Activity lifecycle of a Presenter that 
 
  - The implementation can be followed from [`BasePresenterActivity`](https://github.com/perettijuan/moviespreview/blob/master/MoviesPreview/app/src/main/java/com/jpp/moviespreview/core/mvp/BasePresenterActivity.java)
 
-### Use RxAndroid for endless scrolling
-And if we use RxAndroid with [`RxBinding`](https://github.com/JakeWharton/RxBinding) to detect the scroll in a RecyclerView
-and request values to the API when a treshold is reached? It's seems to work OK!
+
+
 
 ## Libraries and concepts
 
@@ -30,6 +34,7 @@ and request values to the API when a treshold is reached? It's seems to work OK!
 - CoordinatorLayout
 - RecyclerViews
 - CardViews 
+- ConstraintLayouts
 - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - [RxBinding](https://github.com/JakeWharton/RxBinding)
 - [Retrofit 2](http://square.github.io/retrofit/)
