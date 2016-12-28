@@ -20,6 +20,12 @@ This feature is implemented in `HomePresenter` and `HomeScreen.`
 
 Uses a `DrawerLayout` with a `RecyclerView` in it to show the menu of the application.
 
+### Search
+![alt tag](https://github.com/perettijuan/moviespreview/blob/master/art/search.gif)
+
+Different approach for pagination. An Observable handles the pagination internally and publishes the new page(s) to the subscibed Subscriber.
+This approach can be followed from `SearchMovieUseCase`
+
 ## Cool ideas to test
 
 ### MVP implementation and Activity lifecycle:
