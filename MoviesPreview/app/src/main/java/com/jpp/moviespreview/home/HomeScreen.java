@@ -7,7 +7,6 @@ import android.support.annotation.StringRes;
 import android.support.transition.Transition;
 import android.support.transition.TransitionManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +26,7 @@ import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
 import com.jpp.moviespreview.core.toolbar.FadeInToolbarTransition;
 import com.jpp.moviespreview.core.toolbar.FadeOutToolbarTransition;
 import com.jpp.moviespreview.core.toolbar.SimpleTransitionListener;
+import com.jpp.moviespreview.core.ui.SuperLoadingView;
 import com.jpp.moviespreview.core.util.RecyclerViewItemClickListener;
 import com.jpp.moviespreview.home.adapter.HomeMenuRecyclerViewAdapter;
 import com.jpp.moviespreview.home.adapter.MoviesRecyclerViewAdapter;
@@ -46,8 +46,8 @@ import rx.Observable;
  */
 public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> implements HomeView {
 
-    @InjectView(R.id.swipe_main_screen)
-    SwipeRefreshLayout swipeRefreshLayout;
+    @InjectView(R.id.home_superloading_view)
+    SuperLoadingView homeSuperloadingView;
 
     @InjectView(R.id.tb_main_screen)
     Toolbar tbMainScreen;
@@ -79,7 +79,6 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
         ButterKnife.inject(this);
-        prepareSwipeView();
         setSupportActionBar(tbMainScreen);
         prepareRecyclerView();
         prepareDrawer();
@@ -119,20 +118,6 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
 
     //-- prepare
-
-    /**
-     * Fix the problem of the Swipe view not showing the first time.
-     * Source: http://stackoverflow.com/questions/26858692/swiperefreshlayout-setrefreshing-not-showing-indicator-initially
-     */
-    private void prepareSwipeView() {
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                //TODO
-            }
-        });
-    }
 
 
     /**
@@ -266,7 +251,8 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
 
     @Override
     public void showLoading() {
-        swipeRefreshLayout.setRefreshing(true);
+        homeSuperloadingView.onStart();
+        homeSuperloadingView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -275,10 +261,8 @@ public class HomeScreen extends BasePresenterActivity<HomeView, HomePresenter> i
             findViewById(R.id.splash_view).setVisibility(View.GONE);
         }
 
-
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
+        homeSuperloadingView.onStop();
+        homeSuperloadingView.setVisibility(View.GONE);
 
         mRecyclerAdapter.swipeData(page);
         mTotalItemCount = mRecyclerAdapter.getItemCount();
