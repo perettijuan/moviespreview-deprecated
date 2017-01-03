@@ -98,7 +98,7 @@ public class BasePresenter<T extends PresentingView> {
 
 
     /**
-     * @return - the instance of FlowResolver to be used by the presenter.
+     * @return - the instance of MoviesFlowResolver to be used by the presenter.
      */
     protected FlowResolver getFlowResolverInstance() {
         return utilityWrapper.getFlowResolver();

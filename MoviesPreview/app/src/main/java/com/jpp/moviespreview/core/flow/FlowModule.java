@@ -16,7 +16,7 @@ public class FlowModule {
     @Provides
     @Singleton
     public FlowResolver flowResolver() {
-        return new FlowResolver();
+        return new MoviesFlowResolver();
     }
 
 }

@@ -29,7 +29,7 @@ public class UtilityWrapper {
 
 
     /**
-     * @return - the instance of FlowResolver
+     * @return - the instance of MoviesFlowResolver
      */
     public FlowResolver getFlowResolver() {
         return flowResolver;
