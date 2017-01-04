@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.jpp.moviespreview.core.mvp.PresentingView;
 
+import java.util.List;
+
 /**
  * PresentingView implementation for the moview preview detail screen.
  * <p>
@@ -18,4 +20,10 @@ import com.jpp.moviespreview.core.mvp.PresentingView;
     void showMovie(@NonNull MoviePreviewItem moviePreviewItem);
 
 
+    /**
+     * Shows the details of the movie.
+     *
+     * @param details - the entire list of details to show.
+     */
+    void showDetails(@NonNull List<MoviePreviewItemDetail> details);
 }

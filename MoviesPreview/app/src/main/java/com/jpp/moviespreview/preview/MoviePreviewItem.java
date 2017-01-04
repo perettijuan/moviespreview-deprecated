@@ -13,19 +13,13 @@ import com.jpp.moviespreview.core.entity.MovieDto;
 /*package*/ class MoviePreviewItem extends ItemHolder<MovieDto> {
 
     private final String mPosterUrl;
-    private final String mGenres;
-    private final String mPopularity;
     private final String mBackdropUrl;
 
     /*package*/ MoviePreviewItem(@NonNull MovieDto model,
                                  @NonNull String posterUrl,
-                                 @NonNull String genres,
-                                 @NonNull String popularity,
                                  @NonNull String backdropUrl) {
         super(model);
         this.mPosterUrl = posterUrl;
-        this.mGenres = genres;
-        this.mPopularity = popularity;
         this.mBackdropUrl = backdropUrl;
     }
 
@@ -36,28 +30,8 @@ import com.jpp.moviespreview.core.entity.MovieDto;
     }
 
     @NonNull
-    /*package*/ String getOverview() {
-        return getModel().getOverview();
-    }
-
-    @NonNull
-    /*package*/ String getReleaseDate() {
-        return getModel().getReleaseDate();
-    }
-
-    @NonNull
     /*package*/ String getPosterUrl() {
         return mPosterUrl;
-    }
-
-    @NonNull
-    /*package*/ String getGenres() {
-        return mGenres;
-    }
-
-    @NonNull
-    /*package*/ String getPopularity() {
-        return mPopularity;
     }
 
     @NonNull

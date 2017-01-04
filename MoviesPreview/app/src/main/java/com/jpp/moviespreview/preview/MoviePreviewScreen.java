@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -14,13 +16,16 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.jpp.moviespreview.R;
 import com.jpp.moviespreview.core.mvp.BasePresenterActivity;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
+ * Activity for the preview scren.
+ * <p>
  * Created by jpperetti on 6/12/16.
  */
-
 public class MoviePreviewScreen extends BasePresenterActivity<MoviePreviewView, MoviePreviewPresenter>
         implements MoviePreviewView, AppBarLayout.OnOffsetChangedListener {
 
@@ -49,6 +54,9 @@ public class MoviePreviewScreen extends BasePresenterActivity<MoviePreviewView, 
     @InjectView(R.id.iv_movie_poster)
     SimpleDraweeView ivMoviePoster;
 
+    @InjectView(R.id.rv_preview_details)
+    RecyclerView rvPreviewDetails;
+
 
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
@@ -62,6 +70,9 @@ public class MoviePreviewScreen extends BasePresenterActivity<MoviePreviewView, 
         appBarLayout.addOnOffsetChangedListener(this);
         startAlphaAnimation(toolbarTitle, 0, View.INVISIBLE);
     }
+
+
+    //-- MVP
 
     @NonNull
     @Override
@@ -85,25 +96,18 @@ public class MoviePreviewScreen extends BasePresenterActivity<MoviePreviewView, 
 
         txtMovieTitle.setText(moviePreviewItem.getTitle());
         toolbarTitle.setText(moviePreviewItem.getTitle());
-
-        /*SimpleDraweeView moviePoster = (SimpleDraweeView) findViewById(R.id.iv_movie_poster);
-        Uri uri = Uri.parse(moviePreviewItem.getPosterUrl());
-        moviePoster.setImageURI(uri);
-
-
-        TextView toolbarTitle = (TextView) findViewById(R.id.txt_movie_detail_title);
-        toolbarTitle.setText(moviePreviewItem.getTitle());
-
-        TextView txtBody = (TextView) findViewById(R.id.txt_movie_detail_body);
-        txtBody.setText(moviePreviewItem.getOverview());
-
-        TextView txtDate = (TextView) findViewById(R.id.txt_movie_detail_date);
-        txtDate.setText(moviePreviewItem.getReleaseDate());
-
-        TextView txtPopularity = (TextView) findViewById(R.id.txt_movie_detail_popularity);
-        txtPopularity.setText(moviePreviewItem.getPopularity());*/
     }
 
+
+    @Override
+    public void showDetails(@NonNull List<MoviePreviewItemDetail> details) {
+        MovieDetailAdapter adapter = new MovieDetailAdapter(details);
+        rvPreviewDetails.setLayoutManager(new LinearLayoutManager(this));
+        rvPreviewDetails.setAdapter(adapter);
+    }
+
+
+    //-- animations
 
     /**
      * Perform a simple alpha animation to show/hide a view.

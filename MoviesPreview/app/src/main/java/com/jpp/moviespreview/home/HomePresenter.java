@@ -159,6 +159,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
 
+    /**
+     * UseCaseObserver for the movie list retrieval
+     */
     private class GetMoviesUseCaseObserver implements UseCaseObserver<MoviePageDto> {
 
         @Override
@@ -185,6 +188,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
 
+    /**
+     * Subscriber to handle the scrolling.
+     */
     private class ScrollingListener extends Subscriber<RecyclerViewScrollEvent> {
         @Override
         public void onCompleted() {

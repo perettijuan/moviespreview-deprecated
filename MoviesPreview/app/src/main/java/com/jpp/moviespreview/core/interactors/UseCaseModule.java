@@ -1,6 +1,8 @@
 package com.jpp.moviespreview.core.interactors;
 
 import com.jpp.moviespreview.core.MoviesContext;
+import com.jpp.moviespreview.core.entity.MovieDetailDto;
+import com.jpp.moviespreview.core.entity.MovieDto;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
 import com.jpp.moviespreview.core.flow.sections.ApplicationSection;
 
@@ -41,6 +43,15 @@ import dagger.Provides;
     @Provides
     UseCase<String, MoviePageDto> search() {
         return new SearchMovieUseCase();
+    }
+
+
+    /**
+     * @return - the UseCase instance that retrieves the details of a movie.
+     */
+    @Provides
+    UseCase<MovieDto, MovieDetailDto> detail() {
+        return new RetrieveMovieDetailUseCase();
     }
 
 }

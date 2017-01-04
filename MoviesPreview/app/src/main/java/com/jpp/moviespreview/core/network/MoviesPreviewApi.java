@@ -1,12 +1,14 @@
 package com.jpp.moviespreview.core.network;
 
 
+import com.jpp.moviespreview.core.entity.MovieDetailDto;
 import com.jpp.moviespreview.core.entity.MovieGenrePage;
 import com.jpp.moviespreview.core.entity.MoviePageDto;
 import com.jpp.moviespreview.core.entity.RemoteConfigurationDto;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -69,6 +71,17 @@ public interface MoviesPreviewApi {
     @GET("search/movie")
     Call<MoviePageDto> search(@Query("api_key") String apiKey, @Query("query") String query, @Query("page") int page,
                               @Query("include_adult") boolean includeAdult);
+
+
+    /**
+     * Retrieve the details of a given movie.
+     *
+     * @param apiKey  - the api key to use in the authentication process.
+     * @param movieId - the identifier of the movie to retrieve the detail for.
+     * @return - a Call with the response from the server.
+     */
+    @GET("movie/{movie_id}")
+    Call<MovieDetailDto> getMovieDetail(@Path("movie_id") long movieId, @Query("api_key") String apiKey);
 
 
 }
