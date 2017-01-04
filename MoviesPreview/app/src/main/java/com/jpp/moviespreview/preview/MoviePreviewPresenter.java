@@ -73,6 +73,7 @@ public class MoviePreviewPresenter extends BasePresenter<MoviePreviewView> imple
             StringBuilder sb = new StringBuilder();
             for (MovieGenreDto genre : data.getGenres()) {
                 sb.append(genre.getName());
+                sb.append(" ");
             }
             String genreTitle = context.getResources().getQuantityString(R.plurals.detail_genre, data.getGenres().size());
             details.add(new MoviePreviewItemDetail(genreTitle, sb.toString()));
@@ -90,6 +91,7 @@ public class MoviePreviewPresenter extends BasePresenter<MoviePreviewView> imple
             sb = new StringBuilder();
             for (ProductionCompanyDto company : data.getProducers()) {
                 sb.append(company.getName());
+                sb.append(" ");
             }
             details.add(new MoviePreviewItemDetail(context.getString(R.string.detail_produced), sb.toString()));
 
