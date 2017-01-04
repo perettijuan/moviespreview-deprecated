@@ -34,10 +34,11 @@ import com.jpp.moviespreview.core.mvp.BasePresenter;
 
         ImagesConfigurationDto imagesConfiguration = getContext().getRemoteConfiguration().getImagesConfiguration();
         String posterUrl = imagesConfiguration.getPosterImageBaseUrl() + imagesConfiguration.getDefaultPosterSize() + selectedMovie.getPosterPath();
+        String backdropUrl = imagesConfiguration.getPosterImageBaseUrl() + imagesConfiguration.getDefaultPosterSize() + selectedMovie.getBackdropPath();
         String genres = getContext().getGenresById(selectedMovie.getGenreIds());
         String popularity = view.getApplicationContext().getString(R.string.popularity,
                 String.valueOf(selectedMovie.getPopularity()));
-        MoviePreviewItem item = new MoviePreviewItem(selectedMovie, posterUrl, genres, popularity);
+        MoviePreviewItem item = new MoviePreviewItem(selectedMovie, posterUrl, genres, popularity, backdropUrl);
         view.showMovie(item);
     }
 }

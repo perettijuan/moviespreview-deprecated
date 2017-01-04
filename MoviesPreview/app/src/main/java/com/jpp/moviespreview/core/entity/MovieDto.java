@@ -49,6 +49,10 @@ public class MovieDto implements Parcelable {
     @SerializedName("vote_count")
     private long mVoteCount;
 
+    @Expose
+    @SerializedName("backdrop_path")
+    private String mBackdropPath;
+
 
     public int[] getGenreIds() {
         return mGenreIds;
@@ -86,6 +90,9 @@ public class MovieDto implements Parcelable {
         return mVoteCount;
     }
 
+    public String getBackdropPath() {
+        return mBackdropPath;
+    }
 
     //-- parcelable implementation
 
@@ -105,6 +112,7 @@ public class MovieDto implements Parcelable {
         dest.writeString(this.mOverview);
         dest.writeFloat(this.mVoteAverage);
         dest.writeLong(this.mVoteCount);
+        dest.writeString(this.mBackdropPath);
     }
 
     public MovieDto() {
@@ -120,6 +128,7 @@ public class MovieDto implements Parcelable {
         this.mOverview = in.readString();
         this.mVoteAverage = in.readFloat();
         this.mVoteCount = in.readLong();
+        this.mBackdropPath = in.readString();
     }
 
     public static final Creator<MovieDto> CREATOR = new Creator<MovieDto>() {

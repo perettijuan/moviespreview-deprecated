@@ -15,15 +15,18 @@ import com.jpp.moviespreview.core.entity.MovieDto;
     private final String mPosterUrl;
     private final String mGenres;
     private final String mPopularity;
+    private final String mBackdropUrl;
 
     /*package*/ MoviePreviewItem(@NonNull MovieDto model,
                                  @NonNull String posterUrl,
                                  @NonNull String genres,
-                                 @NonNull String popularity) {
+                                 @NonNull String popularity,
+                                 @NonNull String backdropUrl) {
         super(model);
         this.mPosterUrl = posterUrl;
         this.mGenres = genres;
         this.mPopularity = popularity;
+        this.mBackdropUrl = backdropUrl;
     }
 
 
@@ -55,5 +58,10 @@ import com.jpp.moviespreview.core.entity.MovieDto;
     @NonNull
     /*package*/ String getPopularity() {
         return mPopularity;
+    }
+
+    @NonNull
+    /*package*/ String getBackdropUrl() {
+        return mBackdropUrl;
     }
 }
