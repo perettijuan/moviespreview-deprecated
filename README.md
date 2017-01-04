@@ -9,7 +9,7 @@ in order to evaluate how factible they are in a productive environment.
 ## App behavior
 
 ### Endless Scrolling
-![alt tag](https://github.com/perettijuan/moviespreview/blob/master/art/unlimited_scroll.gif)
+![alt tag](https://github.com/perettijuan/moviespreview/blob/master/art/unlimited_scroll_2.gif)
 
 Uses RxAndroid with [`RxBinding`](https://github.com/JakeWharton/RxBinding) to detect the scroll in a RecyclerView
 and request values to the API when a treshold is reached.
@@ -25,6 +25,11 @@ Uses a `DrawerLayout` with a `RecyclerView` in it to show the menu of the applic
 
 Different approach for pagination. An Observable handles the pagination internally and publishes the new page(s) to the subscibed Subscriber.
 This approach can be followed from `SearchMovieUseCase`
+
+### Details
+![alt tag](https://github.com/perettijuan/moviespreview/blob/master/art/movie_detail.gif)
+
+Usage of Material Design to create a nice scrolling behavior for a the details of the movie selected by the user.
 
 ## Cool ideas to test
 
