@@ -20,7 +20,7 @@ abstract class BasePresenter<T : PresentingView> {
      * Links the provided PresentingView instance to this presenter.
      * Return type = Unit (none)
      */
-    fun linkView(viewInstance: T) {
+    open fun linkView(viewInstance: T) {
         viewRef = WeakReference(viewInstance)
     }
 
@@ -28,17 +28,16 @@ abstract class BasePresenter<T : PresentingView> {
     /**
      * Called at the beginning of the flow to initialize the Presenter.
      */
-    fun init(savedInstanceState: Bundle?) : BasePresenter<T> {
+    open fun init(savedInstanceState: Bundle?) {
         mContext = savedInstanceState?.getParcelable(MoviesContext.EXTRA_KEY) ?: MoviesContext()
-        return this
     }
 
 
     /**
      * Unlink a view from this presenter
      */
-    fun unlinkView(viewInstance: T) {
-        if (viewRef?.get() == viewInstance) {
+    open fun unlinkView(viewInstance: T) {
+        if (getView() == viewInstance) {
             viewRef?.clear()
         }
     }
