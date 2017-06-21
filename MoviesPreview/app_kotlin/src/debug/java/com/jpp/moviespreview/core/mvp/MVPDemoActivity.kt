@@ -35,4 +35,7 @@ class MVPDemoActivity : BasePresenterActivity<MVPDemoPresentingView, MVPDemoPres
         return MVPDemoPresenter()
     }
 
+    fun getPresenterInstance() : MVPDemoPresenter {
+        return getPresenter()
+    }
 }
