@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.core.mvp
+package com.jpp.moviespreview.ui.mvp
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity
  * Created by jpp on 6/19/17.
  */
 // out T : BasePresenter<V> -> ensures that the type is only returned (produced) and never consumed (there are not setters for this type)
-abstract class BasePresenterActivity<V : PresentingView, out T : BasePresenter<V>> : AppCompatActivity(), PresentingView {
+abstract class BasePresenterActivity<V : com.jpp.moviespreview.core.mvp.PresentingView, out T : BasePresenter<V>> : AppCompatActivity(), com.jpp.moviespreview.core.mvp.PresentingView {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,12 +43,12 @@ abstract class BasePresenterActivity<V : PresentingView, out T : BasePresenter<V
      * Lookup for the StateFragment: First it attempts to retrieve it from the stack.
      * If not possible, creates a new instance.
      */
-    private fun createStateFragmentIfNeeded(): StateFragment<V, T> {
+    private fun createStateFragmentIfNeeded(): com.jpp.moviespreview.core.mvp.StateFragment<V, T> {
         var stateFragment = getStateFragment()
         if (stateFragment == null) {
-            stateFragment = StateFragment<V, T>()
+            stateFragment = com.jpp.moviespreview.core.mvp.StateFragment<V, T>()
             val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.add(stateFragment, StateFragment.TAG)
+            fragmentTransaction.add(stateFragment, com.jpp.moviespreview.core.mvp.StateFragment.Companion.TAG)
             fragmentTransaction.commit()
         }
         return stateFragment
@@ -57,8 +57,8 @@ abstract class BasePresenterActivity<V : PresentingView, out T : BasePresenter<V
     /**
      * Find the StateFragment instance attached to this activity (if any)
      */
-    private fun getStateFragment(): StateFragment<V, T>? {
-        return supportFragmentManager.findFragmentByTag(StateFragment.TAG) as StateFragment<V, T>?
+    private fun getStateFragment(): com.jpp.moviespreview.core.mvp.StateFragment<V, T>? {
+        return supportFragmentManager.findFragmentByTag(com.jpp.moviespreview.core.mvp.StateFragment.Companion.TAG) as com.jpp.moviespreview.core.mvp.StateFragment<V, T>?
     }
 
 

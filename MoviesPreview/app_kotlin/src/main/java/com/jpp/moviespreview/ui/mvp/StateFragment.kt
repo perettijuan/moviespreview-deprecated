@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.core.mvp
+package com.jpp.moviespreview.ui.mvp
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

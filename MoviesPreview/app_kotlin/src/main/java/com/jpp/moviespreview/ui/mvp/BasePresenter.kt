@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.core.mvp
+package com.jpp.moviespreview.ui.mvp
 
 import android.os.Bundle
 import com.jpp.moviespreview.core.MoviesContext
@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference
  *
  * Created by jpp on 6/19/17.
  */
-abstract class BasePresenter<T : PresentingView> {
+abstract class BasePresenter<T : com.jpp.moviespreview.core.mvp.PresentingView> {
 
     // weak reference to the view instance - it can be null
     private var viewRef: WeakReference<T>? = null
@@ -29,7 +29,7 @@ abstract class BasePresenter<T : PresentingView> {
      * Called at the beginning of the flow to initialize the Presenter.
      */
     open fun init(savedInstanceState: Bundle?) {
-        mContext = savedInstanceState?.getParcelable(MoviesContext.EXTRA_KEY) ?: MoviesContext()
+        mContext = savedInstanceState?.getParcelable(MoviesContext.Companion.Companion.EXTRA_KEY) ?: MoviesContext()
     }
 
 

@@ -1,5 +1,6 @@
 package com.jpp.moviespreview.core.mvp
 
+import com.jpp.moviespreview.ui.mvp.BasePresenter
 import com.jpp.moviespreview.ui.mvp.MVPDemoPresentingView
 
 /**

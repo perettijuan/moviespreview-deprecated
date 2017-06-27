@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.core.mvp
+package com.jpp.moviespreview.ui.mvp
 
 /**
  * Generic interface to present information to the user. Part of the MVP pattern.
