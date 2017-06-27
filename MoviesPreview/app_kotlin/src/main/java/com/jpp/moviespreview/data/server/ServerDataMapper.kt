@@ -21,7 +21,6 @@ class ServerDataMapper {
     private fun convertImagesConfigurationFromDataModel(imagesConfiguration: ImagesConfiguration) = with(imagesConfiguration) {
         ModelImagesConfiguration(base_url, poster_sizes)
     }
-
 }
 
 

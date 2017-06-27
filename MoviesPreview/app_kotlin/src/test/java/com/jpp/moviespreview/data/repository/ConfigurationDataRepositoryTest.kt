@@ -1,6 +1,6 @@
 package com.jpp.moviespreview.data.repository
 
-import com.jpp.moviespreview.data.repository.datasource.ConfigurationDataStore
+import com.jpp.moviespreview.data.repository.datasource.ConfigurationDataSource
 import com.jpp.moviespreview.domain.model.ImagesConfiguration
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
 import org.junit.Assert.*
@@ -14,9 +14,9 @@ class ConfigurationDataRepositoryTest {
 
 
     @Test fun test_lastKnownConfiguration_callsAllPossibleDataStores_andReturnsNullIfNoOneProvides() {
-        val store1 = mock(ConfigurationDataStore::class.java)
-        val store2 = mock(ConfigurationDataStore::class.java)
-        val store3 = mock(ConfigurationDataStore::class.java)
+        val store1 = mock(ConfigurationDataSource::class.java)
+        val store2 = mock(ConfigurationDataSource::class.java)
+        val store3 = mock(ConfigurationDataSource::class.java)
 
 
         val subject = ConfigurationDataRepository(listOf(store1, store2, store3))
@@ -28,9 +28,9 @@ class ConfigurationDataRepositoryTest {
     }
 
     @Test fun test_lastKnownConfiguration_returnsFirstFound_andDoesNotCallAnyMore() {
-        val store1 = mock(ConfigurationDataStore::class.java)
-        val store2 = mock(ConfigurationDataStore::class.java)
-        val store3 = mock(ConfigurationDataStore::class.java)
+        val store1 = mock(ConfigurationDataSource::class.java)
+        val store2 = mock(ConfigurationDataSource::class.java)
+        val store3 = mock(ConfigurationDataSource::class.java)
         val expected = MoviesConfiguration(ImagesConfiguration("someUrl", listOf()))
 
         `when`(store1.lastKnownConfiguration()).then { expected }

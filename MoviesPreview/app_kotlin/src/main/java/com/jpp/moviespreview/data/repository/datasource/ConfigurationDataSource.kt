@@ -6,7 +6,7 @@ import com.jpp.moviespreview.domain.model.MoviesConfiguration
  * DataStore definition for MoviesConfiguration
  * Created by jpp on 6/23/17.
  */
-interface ConfigurationDataStore {
+interface ConfigurationDataSource {
 
 
     /**
