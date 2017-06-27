@@ -1,7 +1,7 @@
 package com.jpp.moviespreview.ui.mvp
 
 import android.os.Bundle
-import com.jpp.moviespreview.core.MoviesContext
+import com.jpp.moviespreview.ui.MoviesContext
 import java.lang.ref.WeakReference
 
 /**

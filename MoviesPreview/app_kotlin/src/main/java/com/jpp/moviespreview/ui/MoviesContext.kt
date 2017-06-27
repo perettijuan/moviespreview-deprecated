@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.core
+package com.jpp.moviespreview.ui
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.extensions
+package com.jpp.moviespreview.extentions
 
 
 /**

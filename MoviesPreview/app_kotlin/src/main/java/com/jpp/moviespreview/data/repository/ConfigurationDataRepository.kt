@@ -3,7 +3,7 @@ package com.jpp.moviespreview.data.repository
 import com.jpp.moviespreview.data.repository.datasource.ConfigurationDataStore
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
 import com.jpp.moviespreview.domain.repository.ConfigurationRepository
-import com.jpp.moviespreview.extensions.firstResult
+import com.jpp.moviespreview.extentions.firstResult
 import javax.inject.Inject
 
 /**
