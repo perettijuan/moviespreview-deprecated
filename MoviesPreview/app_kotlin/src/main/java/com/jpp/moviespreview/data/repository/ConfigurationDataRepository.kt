@@ -7,6 +7,8 @@ import com.jpp.moviespreview.extentions.firstResult
 import javax.inject.Inject
 
 /**
+ * ConfigurationRepository to retrieve the last MoviesConfiguration available from the provided sources.
+ *
  * Created by jpp on 6/23/17.
  */
 class ConfigurationDataRepository @Inject constructor(private val dataStores: List<ConfigurationDataStore>) : ConfigurationRepository {
@@ -26,6 +28,11 @@ class ConfigurationDataRepository @Inject constructor(private val dataStores: Li
      * result that is not null.
      */
     //TODO this is a good candidate to create your own extension method
-    private fun <T : Any> requestToSources(f: (ConfigurationDataStore) -> T?): T = dataStores.firstResult { f(it) }
+    private fun <T : Any> requestToSources(f: (ConfigurationDataStore) -> T?): T? =
+            try {
+                dataStores.firstResult { f(it) }
+            } catch (e: NoSuchElementException) {
+                null
+            }
 
 }
