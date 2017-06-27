@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.core.mvp
+package com.jpp.moviespreview.ui.mvp
 
 import android.support.test.espresso.Espresso.*
 import android.support.test.espresso.matcher.ViewMatchers.*

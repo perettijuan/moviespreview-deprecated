@@ -12,6 +12,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isRoot;
 
 /**
  * An Espresso ViewAction that changes the orientation of the screen
+ * From https://gist.github.com/nbarraille/03e8910dc1d415ed9740
  */
 public class OrientationChangeAction implements ViewAction {
     private final int orientation;

@@ -1,5 +1,6 @@
-package com.jpp.moviespreview.core.mvp
+package com.jpp.moviespreview.ui.mvp
 
+import android.R
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ class MVPDemoAdapter(val stringList: List<String>) : RecyclerView.Adapter<MVPDem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.ctx).inflate(android.R.layout.simple_list_item_1, parent, false)
-        return ViewHolder(view, view.find(android.R.id.text1))
+        return ViewHolder(view, view.find(R.id.text1))
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {

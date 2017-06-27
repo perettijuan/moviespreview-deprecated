@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.jpp.moviespreview.R
+import com.jpp.moviespreview.ui.mvp.MVPDemoAdapter
+import com.jpp.moviespreview.ui.mvp.MVPDemoPresentingView
 import org.jetbrains.anko.find
 
 /**

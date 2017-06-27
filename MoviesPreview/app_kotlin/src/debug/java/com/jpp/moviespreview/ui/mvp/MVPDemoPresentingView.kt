@@ -1,4 +1,6 @@
-package com.jpp.moviespreview.core.mvp
+package com.jpp.moviespreview.ui.mvp
+
+import com.jpp.moviespreview.core.mvp.PresentingView
 
 /**
  * Created by jpp on 6/20/17.
