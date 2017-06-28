@@ -2,12 +2,14 @@ package com.jpp.moviespreview.ui
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.jpp.moviespreview.ui.model.MoviesConfiguration
 
 /**
  * Created by jpp on 6/19/17.
  */
 class MoviesContext constructor() : Parcelable {
 
+    var moviesConfiguration: MoviesConfiguration? = null
 
     /**
      * Private constructor for Parcelable implementation.
@@ -15,17 +17,15 @@ class MoviesContext constructor() : Parcelable {
      * Note that ` : this()` is how we declare a secondary constructor in Kotlin.
      */
     private constructor(source: Parcel?) : this() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        moviesConfiguration = source?.readParcelable(MoviesConfiguration::class.java.classLoader)
     }
 
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        dest?.writeParcelable(moviesConfiguration, flags)
     }
 
-    override fun describeContents(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun describeContents() = 0
 
 
     companion object {

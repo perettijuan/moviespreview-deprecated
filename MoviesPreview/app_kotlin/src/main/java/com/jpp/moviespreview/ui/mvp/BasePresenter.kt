@@ -1,7 +1,10 @@
 package com.jpp.moviespreview.ui.mvp
 
 import android.os.Bundle
+import android.support.annotation.CallSuper
 import com.jpp.moviespreview.ui.MoviesContext
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.lang.ref.WeakReference
 
 /**
@@ -12,22 +15,24 @@ import java.lang.ref.WeakReference
 abstract class BasePresenter<T : PresentingView> {
 
     // weak reference to the view instance - it can be null
-    private var viewRef: WeakReference<T>? = null
+    private var mViewRef: WeakReference<T>? = null
 
-    var mContext: MoviesContext? = null
+    lateinit var mContext: MoviesContext
 
     /**
      * Links the provided PresentingView instance to this presenter.
      * Return type = Unit (none)
      */
+    @CallSuper
     open fun linkView(viewInstance: T) {
-        viewRef = WeakReference(viewInstance)
+        mViewRef = WeakReference(viewInstance)
     }
 
 
     /**
      * Called at the beginning of the flow to initialize the Presenter.
      */
+    @CallSuper
     open fun init(savedInstanceState: Bundle?) {
         mContext = savedInstanceState?.getParcelable(MoviesContext.Companion.EXTRA_KEY) ?: MoviesContext()
     }
@@ -36,14 +41,27 @@ abstract class BasePresenter<T : PresentingView> {
     /**
      * Unlink a view from this presenter
      */
+    @CallSuper
     open fun unlinkView(viewInstance: T) {
         if (getView() == viewInstance) {
-            viewRef?.clear()
+            mViewRef?.clear()
         }
     }
 
     /**
      * Returns the currently linked view. Null if no view is linked
      */
-    protected fun getView() = viewRef?.get()
+    protected fun getView() = mViewRef?.get()
+
+
+    fun <Response> executeInBackground(background: () -> Response?, ui: (Response?) -> Unit) {
+        doAsync {
+            val result = background()
+            uiThread {
+                ui(result)
+            }
+        }
+    }
+
+
 }
