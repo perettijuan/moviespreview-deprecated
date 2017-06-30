@@ -1,5 +1,6 @@
 package com.jpp.moviespreview.data.server.datasource
 
+import com.jpp.moviespreview.BuildConfig
 import com.jpp.moviespreview.data.server.ImagesConfiguration
 import com.jpp.moviespreview.data.server.MoviesConfiguration
 import com.jpp.moviespreview.data.server.retrofit.MoviesPreviewApi
@@ -17,7 +18,7 @@ class ServerConfigurationDataSourceTest {
 
     @Test fun lastKnownConfiguration_callsApi_andMapsResult() {
         val apiInstance = mock(MoviesPreviewApi::class.java)
-        val apiKey = "apiKey"
+        val apiKey = BuildConfig.API_KEY
         val call = mock(Call::class.java)
         val response = mock(Response::class.java)
         val expectedResponse = mock(MoviesConfiguration::class.java)
@@ -32,7 +33,7 @@ class ServerConfigurationDataSourceTest {
         `when`(imagesConfiguration.base_url).then { expectedUrl }
         `when`(imagesConfiguration.poster_sizes).then { expectedSizes }
 
-        val subject = ServerConfigurationDataSource(apiInstance, apiKey)
+        val subject = ServerConfigurationDataSource(apiInstance)
         val actualResponse = subject.lastKnownConfiguration()
 
         verify(apiInstance).getLastConfiguration(apiKey)
