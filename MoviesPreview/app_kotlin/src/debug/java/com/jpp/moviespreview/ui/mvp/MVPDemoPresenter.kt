@@ -1,12 +1,13 @@
 package com.jpp.moviespreview.core.mvp
 
+import com.jpp.moviespreview.domain.UseCaseFactory
 import com.jpp.moviespreview.ui.mvp.BasePresenter
 import com.jpp.moviespreview.ui.mvp.MVPDemoPresentingView
 
 /**
  * Created by jpp on 6/20/17.
  */
-class MVPDemoPresenter : BasePresenter<MVPDemoPresentingView>() {
+class MVPDemoPresenter(useCaseFactory: UseCaseFactory) : BasePresenter<MVPDemoPresentingView>(useCaseFactory) {
 
 
     val stringDataList = ArrayList<String>()

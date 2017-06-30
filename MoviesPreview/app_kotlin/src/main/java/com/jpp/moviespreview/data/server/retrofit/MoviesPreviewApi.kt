@@ -6,6 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
+ * API instance for Retrofit
+ *
  * Created by jpp on 6/27/17.
  */
 interface MoviesPreviewApi {

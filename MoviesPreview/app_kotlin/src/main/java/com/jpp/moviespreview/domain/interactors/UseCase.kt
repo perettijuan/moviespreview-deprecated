@@ -9,7 +9,8 @@ interface UseCase<Param, Response> {
 
     /**
      * Executes the use case: consists on receiving a Param and execute actions
-     * with that param (or not) returning a Response that can be null
+     * with that param (or not) returning a Response that can be null (representing
+     * an error)
      */
     fun execute(param: Param?): Response?
 

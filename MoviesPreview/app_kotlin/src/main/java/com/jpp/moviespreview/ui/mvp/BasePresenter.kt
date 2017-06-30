@@ -2,17 +2,20 @@ package com.jpp.moviespreview.ui.mvp
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
+import com.jpp.moviespreview.domain.UseCaseFactory
 import com.jpp.moviespreview.ui.MoviesContext
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.lang.ref.WeakReference
 
 /**
- * Presenter base part of the MVP pattern.
+ * Base class for all Presenters in the application.
+ * It interacts with a PresentingView instance in order to show to the user information
+ * and receive input from the user.
  *
  * Created by jpp on 6/19/17.
  */
-abstract class BasePresenter<T : PresentingView> {
+abstract class BasePresenter<T : PresentingView>(val useCaseFactory: UseCaseFactory) {
 
     // weak reference to the view instance - it can be null
     private var mViewRef: WeakReference<T>? = null
@@ -54,7 +57,11 @@ abstract class BasePresenter<T : PresentingView> {
     protected fun getView() = mViewRef?.get()
 
 
-    fun <Response> executeInBackground(background: () -> Response?, ui: (Response?) -> Unit) {
+    /**
+     * Executes a function in background (background() lambda) and process the response of that
+     * function on UI thread (lambda ui())
+     */
+    protected fun <Response> executeInBackground(background: () -> Response?, ui: (Response?) -> Unit) {
         doAsync {
             val result = background()
             uiThread {

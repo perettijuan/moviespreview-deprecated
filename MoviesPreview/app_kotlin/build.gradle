@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt' //  Kotlin own Annotation Processing Tool for Kotlin
+
 
 android {
     compileSdkVersion 25
@@ -21,6 +21,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'API_ENDPOINT', '"https://api.themoviedb.org/3/"'
+            buildConfigField 'String', 'API_KEY', '"eddf6980a6d7dadd72386f55f94ab571"'
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'API_ENDPOINT', '"https://api.themoviedb.org/3/"'
+            buildConfigField 'String', 'API_KEY', '"eddf6980a6d7dadd72386f55f94ab571"'
         }
     }
 }
@@ -47,8 +56,9 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
 
     // for Dagger
-    kapt 'com.google.dagger:dagger-compiler:2.5'
-    compile 'com.google.dagger:dagger:2.5'
+    compile 'com.google.dagger:dagger:2.7'
+    kapt 'com.google.dagger:dagger-compiler:2.7'
+    provided 'javax.annotation:jsr250-api:1.0'
 
     // for JUnit tests
     testCompile 'junit:junit:4.12'

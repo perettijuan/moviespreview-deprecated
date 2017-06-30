@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.jpp.moviespreview.R
+import com.jpp.moviespreview.extentions.getUseCaseFactoryAsSystem
 import com.jpp.moviespreview.ui.mvp.BasePresenterActivity
 import com.jpp.moviespreview.ui.mvp.MVPDemoAdapter
 import com.jpp.moviespreview.ui.mvp.MVPDemoPresentingView
@@ -35,7 +36,7 @@ class MVPDemoActivity : BasePresenterActivity<MVPDemoPresentingView, MVPDemoPres
     }
 
     override fun createPresenter(): MVPDemoPresenter {
-        return MVPDemoPresenter()
+        return MVPDemoPresenter(getUseCaseFactoryAsSystem())
     }
 
     fun getPresenterInstance() : MVPDemoPresenter {

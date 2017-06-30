@@ -62,13 +62,22 @@ abstract class BasePresenterActivity<V : PresentingView, out T : BasePresenter<V
     }
 
 
+    /**
+     * Returns a PresentingView instance (usually, the Activity)
+     */
     protected abstract fun getView(): V
 
+    /**
+     * Finds the presenter in the current Fragment stack
+     */
     protected fun getPresenter(): T {
         val stateFragment = getStateFragment() ?: throw IllegalStateException("StateFragment not created yet")
         val presenter = stateFragment.mPresenter ?: throw IllegalArgumentException("Presenter not attached yet")
         return presenter
     }
 
+    /**
+     * Creates the Presenter instance of the MVP
+     */
     protected abstract fun createPresenter(): T
 }

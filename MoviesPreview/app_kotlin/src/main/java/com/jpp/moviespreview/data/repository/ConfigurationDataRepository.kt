@@ -4,14 +4,13 @@ import com.jpp.moviespreview.data.repository.datasource.ConfigurationDataSource
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
 import com.jpp.moviespreview.domain.repository.ConfigurationRepository
 import com.jpp.moviespreview.extentions.firstResult
-import javax.inject.Inject
 
 /**
  * ConfigurationRepository to retrieve the last MoviesConfiguration available from the provided sources.
  *
  * Created by jpp on 6/23/17.
  */
-class ConfigurationDataRepository @Inject constructor(private val dataSources: List<ConfigurationDataSource>) : ConfigurationRepository {
+class ConfigurationDataRepository(private val dataSources: List<ConfigurationDataSource>) : ConfigurationRepository {
 
     override fun lastKnownConfiguration(): MoviesConfiguration? = requestToSources {
         val found = it.lastKnownConfiguration()

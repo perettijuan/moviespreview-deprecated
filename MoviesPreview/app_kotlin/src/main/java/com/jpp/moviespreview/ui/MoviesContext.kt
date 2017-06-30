@@ -5,6 +5,12 @@ import android.os.Parcelable
 import com.jpp.moviespreview.ui.model.MoviesConfiguration
 
 /**
+ * Application context implementation: it contains all the entities that are needed at UI layer
+ * to provide the app's functionality.
+ *
+ * An instance of this class is created by the first BasePresenter instantiated by the application
+ * and then it's passed via parcelable in the Intents that creates the Activities.
+ *
  * Created by jpp on 6/19/17.
  */
 class MoviesContext constructor() : Parcelable {
