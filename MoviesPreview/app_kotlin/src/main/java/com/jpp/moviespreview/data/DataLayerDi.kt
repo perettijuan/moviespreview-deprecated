@@ -2,9 +2,12 @@ package com.jpp.moviespreview.data
 
 import com.jpp.moviespreview.BuildConfig
 import com.jpp.moviespreview.data.repository.ConfigurationDataRepository
+import com.jpp.moviespreview.data.repository.MoviesDataRepository
 import com.jpp.moviespreview.data.server.datasource.ServerConfigurationDataSource
+import com.jpp.moviespreview.data.server.datasource.ServerMoviesDataSource
 import com.jpp.moviespreview.data.server.retrofit.MoviesPreviewApi
 import com.jpp.moviespreview.domain.repository.ConfigurationRepository
+import com.jpp.moviespreview.domain.repository.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -39,6 +42,8 @@ interface DataLayerFactory {
 
     fun getConfigurationRepository(): ConfigurationRepository
 
+    fun getMoviesRepository(): MoviesRepository
+
 }
 
 
@@ -68,7 +73,10 @@ private class DataLayerFactoryImpl : DataLayerFactory {
 
 
     // for the moment, use only server data sources. in the future will have cache access.
+
+
     override fun getConfigurationRepository()
             = ConfigurationDataRepository(listOf(ServerConfigurationDataSource(API)))
 
+    override fun getMoviesRepository() = MoviesDataRepository(listOf(ServerMoviesDataSource(API)))
 }

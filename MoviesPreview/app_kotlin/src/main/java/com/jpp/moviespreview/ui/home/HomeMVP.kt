@@ -2,6 +2,7 @@ package com.jpp.moviespreview.ui.home
 
 import com.jpp.moviespreview.domain.UseCaseFactory
 import com.jpp.moviespreview.ui.model.DomainToUiMapper
+import com.jpp.moviespreview.ui.model.Movie
 import com.jpp.moviespreview.ui.mvp.BasePresenter
 import com.jpp.moviespreview.ui.mvp.PresentingView
 import com.jpp.moviespreview.ui.model.MoviesConfiguration as uiMoviesConfiguration
@@ -22,6 +23,8 @@ interface HomeView : PresentingView {
 
     fun showError()
 
+    fun showMoviesPage(page: List<Movie>)
+
 }
 
 
@@ -31,19 +34,42 @@ interface HomeView : PresentingView {
 //TODO test!
 class HomePresenter(useCaseFactory: UseCaseFactory) : BasePresenter<HomeView>(useCaseFactory) {
 
+    // since the presenter is never destroyed, we can rely on this
+    private var mCurrentPage = 1
 
     override fun linkView(viewInstance: HomeView) {
         super.linkView(viewInstance)
         if (mContext.moviesConfiguration == null) {
-            executeInBackground({ useCaseFactory.moviesConfiguration().execute(null) }, {
-                if (it != null) {
-                    mContext.moviesConfiguration = DomainToUiMapper().convertMoviesConfigurationFromDomainModel(it)
-                    // at this point, i know mContext.moviesConfiguration will be != null
-                    getView()?.showMoviesConfiguration(mContext.moviesConfiguration!!)
-                } else {
-                    getView()?.showError()
-                }
-            })
+            getMoviesConfiguration()
+        } else {
+            getNextMoviesPage()
         }
+    }
+
+
+    private fun getMoviesConfiguration() {
+        executeInBackground({ useCaseFactory.moviesConfiguration().execute(null) }, {
+            if (it != null) {
+                mContext.moviesConfiguration = DomainToUiMapper().convertMoviesConfigurationFromDomainModel(it)
+                // at this point, i know mContext.moviesConfiguration will be != null
+                getView()?.showMoviesConfiguration(mContext.moviesConfiguration!!)
+                getNextMoviesPage()
+            } else {
+                getView()?.showError()
+            }
+        })
+    }
+
+    private fun getNextMoviesPage() {
+        executeInBackground({ useCaseFactory.topRatedMovies().execute(mCurrentPage) }, {
+            if (it != null) {
+                // update the page
+                mCurrentPage = ++it.page
+                val moviesPage = DomainToUiMapper().convertMoviesFromDomainModel(it.movies)
+                getView()?.showMoviesPage(moviesPage)
+            } else {
+                getView()?.showError()
+            }
+        })
     }
 }

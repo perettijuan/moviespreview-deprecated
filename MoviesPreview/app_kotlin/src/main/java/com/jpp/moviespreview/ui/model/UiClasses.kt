@@ -66,3 +66,44 @@ data class MoviesConfiguration(val imagesConfiguration: ImagesConfiguration) : P
     }
 
 }
+
+// TODO check two things: 1 - are we using all properties? / 2 - genres should be a List of Genre class
+data class Movie(var genreIds: List<Int>, var id: Long, var title: String, var popularity: Float,
+                 var releaseDate: String, var posterPath: String, var overview: String,
+                 var voteAverage: Float, var voteCount: Long, var backdropPath: String) : Parcelable {
+
+    companion object {
+        @JvmField val CREATOR: Parcelable.Creator<Movie> = object : Parcelable.Creator<Movie> {
+            override fun createFromParcel(source: Parcel): Movie = Movie(source)
+            override fun newArray(size: Int): Array<Movie?> = arrayOfNulls(size)
+        }
+    }
+
+    constructor(source: Parcel) : this(
+            ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) },
+            source.readLong(),
+            source.readString(),
+            source.readFloat(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readFloat(),
+            source.readLong(),
+            source.readString()
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeList(genreIds)
+        dest.writeLong(id)
+        dest.writeString(title)
+        dest.writeFloat(popularity)
+        dest.writeString(releaseDate)
+        dest.writeString(posterPath)
+        dest.writeString(overview)
+        dest.writeFloat(voteAverage)
+        dest.writeLong(voteCount)
+        dest.writeString(backdropPath)
+    }
+}

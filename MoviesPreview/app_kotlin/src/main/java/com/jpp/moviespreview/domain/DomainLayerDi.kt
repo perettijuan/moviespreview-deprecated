@@ -1,8 +1,11 @@
 package com.jpp.moviespreview.domain
 
 import com.jpp.moviespreview.data.DataLayerFactory
+import com.jpp.moviespreview.domain.interactors.InTheatresMoviesUseCase
 import com.jpp.moviespreview.domain.interactors.RetrieveConfigurationUseCase
+import com.jpp.moviespreview.domain.interactors.TopRatedMoviesUseCase
 import com.jpp.moviespreview.domain.interactors.UseCase
+import com.jpp.moviespreview.domain.model.MoviePage
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
 import dagger.Module
 import dagger.Provides
@@ -44,6 +47,10 @@ interface UseCaseFactory {
     fun moviesConfiguration(): UseCase<Any, MoviesConfiguration>
 
 
+    fun topRatedMovies(): UseCase<Int, MoviePage>
+
+    fun inTheatresMovies(): UseCase<Int, MoviePage>
+
 }
 
 
@@ -52,7 +59,9 @@ interface UseCaseFactory {
  */
 private class UseCaseFactoryImpl(private var mDataLaterFactory: DataLayerFactory) : UseCaseFactory {
 
-
     override fun moviesConfiguration() = RetrieveConfigurationUseCase(mDataLaterFactory.getConfigurationRepository())
 
+    override fun topRatedMovies() = TopRatedMoviesUseCase(mDataLaterFactory.getMoviesRepository())
+
+    override fun inTheatresMovies() = InTheatresMoviesUseCase(mDataLaterFactory.getMoviesRepository())
 }

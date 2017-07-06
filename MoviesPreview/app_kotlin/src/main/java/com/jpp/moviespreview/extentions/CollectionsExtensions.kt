@@ -14,3 +14,14 @@ inline fun <T, R : Any> Iterable<T>.firstResult(predicate: (T) -> R?): R {
     }
     throw NoSuchElementException("No element matching the predicate was found")
 }
+
+/**
+ * Extension function that iterates over a list and returns the result of applying a lambda (predicate)
+ * to the first non null result found. If all the elements on the list are null, the null is returned.
+ */
+inline fun <V, T : Any> Iterable<V>.findFirstPossibleResult(predicate: (V) -> T?): T? =
+        try {
+            firstResult { predicate(it) }
+        } catch (e: NoSuchElementException) {
+            null
+        }

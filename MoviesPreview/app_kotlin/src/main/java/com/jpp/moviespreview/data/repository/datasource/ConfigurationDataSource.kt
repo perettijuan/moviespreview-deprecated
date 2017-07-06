@@ -3,7 +3,7 @@ package com.jpp.moviespreview.data.repository.datasource
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
 
 /**
- * DataStore definition for MoviesConfiguration
+ * Datasource definition for MoviesConfiguration
  * Created by jpp on 6/23/17.
  */
 interface ConfigurationDataSource {

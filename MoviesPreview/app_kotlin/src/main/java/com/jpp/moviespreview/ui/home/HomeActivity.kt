@@ -3,6 +3,7 @@ package com.jpp.moviespreview.ui.home
 import android.os.Bundle
 import com.jpp.moviespreview.R
 import com.jpp.moviespreview.extentions.getUseCaseFactoryAsSystem
+import com.jpp.moviespreview.ui.model.Movie
 import com.jpp.moviespreview.ui.model.MoviesConfiguration
 import com.jpp.moviespreview.ui.mvp.BasePresenterActivity
 import org.jetbrains.anko.toast
@@ -31,6 +32,9 @@ class HomeActivity : BasePresenterActivity<HomeView, HomePresenter>(), HomeView 
         toast("Error baby!!")
     }
 
+    override fun showMoviesPage(page: List<Movie>) {
+        toast("Total movies $page.size" )
+    }
     // From PresentingView
 
     override fun getView() = this
