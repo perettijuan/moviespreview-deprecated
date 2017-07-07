@@ -9,9 +9,11 @@ import com.jpp.moviespreview.data.server.retrofit.unwrapCall
 import com.jpp.moviespreview.domain.model.MoviePage
 
 /**
+ * MoviesDataSource implementation to retrieve results from the server
+ *
  * Created by jpp on 7/6/17.
  */
-class ServerMoviesDataSource(private val apiInstance: MoviesPreviewApi): MoviesDataSource {
+class ServerMoviesDataSource(private val apiInstance: MoviesPreviewApi) : MoviesDataSource {
 
 
     override fun topRated(page: Int): MoviePage? {

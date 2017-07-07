@@ -6,6 +6,8 @@ import com.jpp.moviespreview.domain.repository.MoviesRepository
 import com.jpp.moviespreview.extentions.findFirstPossibleResult
 
 /**
+ * MoviesRepository implementation for the data layer
+ *
  * Created by jpp on 7/6/17.
  */
 class MoviesDataRepository(private val dataSources: List<MoviesDataSource>) : MoviesRepository {
