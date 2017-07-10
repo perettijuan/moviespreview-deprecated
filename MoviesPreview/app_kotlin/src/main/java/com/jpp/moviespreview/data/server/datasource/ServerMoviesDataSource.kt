@@ -1,7 +1,7 @@
 package com.jpp.moviespreview.data.server.datasource
 
 import com.jpp.moviespreview.BuildConfig
-import com.jpp.moviespreview.data.repository.datasource.MoviesDataSource
+import com.jpp.moviespreview.data.datasource.MoviesDataSource
 
 import com.jpp.moviespreview.data.server.ServerDataMapper
 import com.jpp.moviespreview.data.server.retrofit.MoviesPreviewApi

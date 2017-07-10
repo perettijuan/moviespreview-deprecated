@@ -1,4 +1,4 @@
-package com.jpp.moviespreview.data.repository.datasource
+package com.jpp.moviespreview.data.datasource
 
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
 

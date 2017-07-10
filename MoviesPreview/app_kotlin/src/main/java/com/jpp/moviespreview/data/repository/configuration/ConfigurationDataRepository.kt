@@ -1,8 +1,7 @@
-package com.jpp.moviespreview.data.repository
+package com.jpp.moviespreview.data.repository.configuration
 
-import com.jpp.moviespreview.data.repository.datasource.ConfigurationDataSource
+import com.jpp.moviespreview.data.datasource.ConfigurationDataSource
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
-import com.jpp.moviespreview.domain.repository.ConfigurationRepository
 import com.jpp.moviespreview.extentions.findFirstPossibleResult
 
 /**

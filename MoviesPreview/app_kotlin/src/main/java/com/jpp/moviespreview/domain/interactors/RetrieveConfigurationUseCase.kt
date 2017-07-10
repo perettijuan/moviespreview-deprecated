@@ -1,7 +1,7 @@
 package com.jpp.moviespreview.domain.interactors
 
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
-import com.jpp.moviespreview.domain.repository.ConfigurationRepository
+import com.jpp.moviespreview.data.repository.configuration.ConfigurationRepository
 
 /**
  * UseCase that retrieves the last known MoviesConfiguration

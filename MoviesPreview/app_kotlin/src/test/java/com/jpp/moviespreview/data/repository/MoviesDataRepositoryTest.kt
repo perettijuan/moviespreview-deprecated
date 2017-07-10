@@ -1,10 +1,10 @@
 package com.jpp.moviespreview.data.repository
 
-import com.jpp.moviespreview.data.repository.datasource.MoviesDataSource
+import com.jpp.moviespreview.data.datasource.MoviesDataSource
+import com.jpp.moviespreview.data.repository.movies.MoviesDataRepository
 import com.jpp.moviespreview.domain.model.MoviePage
 import org.junit.Assert.*
 import org.junit.Test
-import org.mockito.ArgumentMatchers
 import org.mockito.Mockito.*
 
 /**

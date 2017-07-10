@@ -1,6 +1,7 @@
 package com.jpp.moviespreview.data.repository
 
-import com.jpp.moviespreview.data.repository.datasource.ConfigurationDataSource
+import com.jpp.moviespreview.data.repository.configuration.ConfigurationDataRepository
+import com.jpp.moviespreview.data.datasource.ConfigurationDataSource
 import com.jpp.moviespreview.domain.model.ImagesConfiguration
 import com.jpp.moviespreview.domain.model.MoviesConfiguration
 import org.junit.Assert.*

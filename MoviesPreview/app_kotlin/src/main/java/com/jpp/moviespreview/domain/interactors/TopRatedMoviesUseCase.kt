@@ -1,7 +1,7 @@
 package com.jpp.moviespreview.domain.interactors
 
 import com.jpp.moviespreview.domain.model.MoviePage
-import com.jpp.moviespreview.domain.repository.MoviesRepository
+import com.jpp.moviespreview.data.repository.movies.MoviesRepository
 
 /**
  * Created by jpp on 7/6/17.
