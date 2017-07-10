@@ -2,7 +2,7 @@ package com.jpp.moviespreview.data.repository
 
 import com.jpp.moviespreview.data.datasource.MoviesDataSource
 import com.jpp.moviespreview.data.repository.movies.MoviesDataRepository
-import com.jpp.moviespreview.domain.model.MoviePage
+import com.jpp.moviespreview.data.model.MoviePage
 import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.Mockito.*

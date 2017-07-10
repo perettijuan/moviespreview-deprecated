@@ -6,6 +6,8 @@ import com.jpp.moviespreview.data.model.ImagesConfiguration as DataImagesConfigu
 import com.jpp.moviespreview.data.model.MoviesConfiguration as DataMoviesConfiguration
 
 /**
+ * Maps configuration classes from the data layer to the domain layer
+ *
  * Created by jpp on 7/10/17.
  */
 class ConfigurationDataMapper {

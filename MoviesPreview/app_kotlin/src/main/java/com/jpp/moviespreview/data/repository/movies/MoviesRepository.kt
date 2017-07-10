@@ -1,6 +1,7 @@
 package com.jpp.moviespreview.data.repository.movies
 
-import com.jpp.moviespreview.domain.model.MoviePage
+import com.jpp.moviespreview.data.model.MoviePage
+
 
 /**
  * Created by jpp on 7/6/17.

@@ -1,7 +1,7 @@
 package com.jpp.moviespreview.data.repository.movies
 
 import com.jpp.moviespreview.data.datasource.MoviesDataSource
-import com.jpp.moviespreview.domain.model.MoviePage
+import com.jpp.moviespreview.data.model.MoviePage
 import com.jpp.moviespreview.extentions.findFirstPossibleResult
 
 /**

@@ -3,8 +3,8 @@ package com.jpp.moviespreview.data.server
 
 import com.jpp.moviespreview.data.model.ImagesConfiguration as DataImagesConfiguration
 import com.jpp.moviespreview.data.model.MoviesConfiguration as DataMoviesConfiguration
-import com.jpp.moviespreview.domain.model.MoviePage as ModelMoviePage
-import com.jpp.moviespreview.domain.model.Movie as ModelMovie
+import com.jpp.moviespreview.data.model.MoviePage as ModelMoviePage
+import com.jpp.moviespreview.data.model.Movie as ModelMovie
 
 /**
  * Mapper between the Data layer and the domain layer.

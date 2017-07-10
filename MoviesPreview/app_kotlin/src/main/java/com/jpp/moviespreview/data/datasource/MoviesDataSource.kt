@@ -1,6 +1,6 @@
 package com.jpp.moviespreview.data.datasource
 
-import com.jpp.moviespreview.domain.model.MoviePage
+import com.jpp.moviespreview.data.model.MoviePage
 
 
 /**

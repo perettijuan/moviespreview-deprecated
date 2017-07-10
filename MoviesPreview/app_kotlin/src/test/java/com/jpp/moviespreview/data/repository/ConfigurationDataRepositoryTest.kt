@@ -2,8 +2,8 @@ package com.jpp.moviespreview.data.repository
 
 import com.jpp.moviespreview.data.repository.configuration.ConfigurationDataRepository
 import com.jpp.moviespreview.data.datasource.ConfigurationDataSource
-import com.jpp.moviespreview.domain.model.ImagesConfiguration
-import com.jpp.moviespreview.domain.model.MoviesConfiguration
+import com.jpp.moviespreview.data.model.ImagesConfiguration
+import com.jpp.moviespreview.data.model.MoviesConfiguration
 import org.junit.Assert.*
 import org.junit.Test
 import org.mockito.Mockito.*
