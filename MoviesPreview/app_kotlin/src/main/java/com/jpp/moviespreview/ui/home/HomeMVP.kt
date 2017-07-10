@@ -60,7 +60,7 @@ class HomePresenter(useCaseFactory: UseCaseFactory) : BasePresenter<HomeView>(us
         })
     }
 
-    private fun getNextMoviesPage() {
+    fun getNextMoviesPage() {
         executeInBackground({ useCaseFactory.topRatedMovies().execute(mCurrentPage) }, {
             if (it != null) {
                 // update the page

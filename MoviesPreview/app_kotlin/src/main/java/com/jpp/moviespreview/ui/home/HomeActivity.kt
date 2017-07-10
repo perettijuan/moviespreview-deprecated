@@ -1,11 +1,14 @@
 package com.jpp.moviespreview.ui.home
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import com.jpp.moviespreview.R
+import com.jpp.moviespreview.extentions.endlessScrolling
 import com.jpp.moviespreview.extentions.getUseCaseFactoryAsSystem
 import com.jpp.moviespreview.ui.model.Movie
 import com.jpp.moviespreview.ui.model.MoviesConfiguration
 import com.jpp.moviespreview.ui.mvp.BasePresenterActivity
+import kotlinx.android.synthetic.main.home_activity.*
 import org.jetbrains.anko.toast
 
 /**
@@ -15,11 +18,14 @@ import org.jetbrains.anko.toast
  */
 class HomeActivity : BasePresenterActivity<HomeView, HomePresenter>(), HomeView {
 
+    val adapter by lazy { MoviesAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
-
+        rv_movies.layoutManager = LinearLayoutManager(this)
+        rv_movies.adapter = adapter
+        rv_movies.endlessScrolling({ getPresenter().getNextMoviesPage() })
     }
 
     // from HomeView
@@ -33,7 +39,7 @@ class HomeActivity : BasePresenterActivity<HomeView, HomePresenter>(), HomeView 
     }
 
     override fun showMoviesPage(page: List<Movie>) {
-        toast("Total movies $page.size" )
+        adapter.appendMovies(page)
     }
     // From PresentingView
 
