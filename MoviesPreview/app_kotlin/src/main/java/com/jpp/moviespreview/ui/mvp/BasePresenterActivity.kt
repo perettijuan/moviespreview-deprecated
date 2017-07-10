@@ -23,7 +23,6 @@ abstract class BasePresenterActivity<V : PresentingView, out T : BasePresenter<V
 
         if (presenter == null) {
             presenter = createPresenter()
-            presenter.init(savedInstanceState)
         }
 
         stateFragment.mPresenter = presenter

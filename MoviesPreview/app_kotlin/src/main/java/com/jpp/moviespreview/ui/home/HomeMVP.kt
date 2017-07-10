@@ -40,9 +40,11 @@ class HomePresenter(useCaseFactory: UseCaseFactory) : BasePresenter<HomeView>(us
     override fun linkView(viewInstance: HomeView) {
         super.linkView(viewInstance)
         if (mContext.moviesConfiguration == null) {
+            // first time -> retrieve configuration
             getMoviesConfiguration()
-        } else {
-            getNextMoviesPage()
+        } else if (!mContext.movies.isEmpty()) {
+            // case: rotation
+            viewInstance.showMoviesPage(mContext.movies)
         }
     }
 
@@ -66,6 +68,7 @@ class HomePresenter(useCaseFactory: UseCaseFactory) : BasePresenter<HomeView>(us
                 // update the page
                 mCurrentPage = ++it.page
                 val moviesPage = DomainToUiMapper().convertMoviesFromDomainModel(it.movies)
+                mContext.movies.addAll(moviesPage)
                 getView()?.showMoviesPage(moviesPage)
             } else {
                 getView()?.showError()

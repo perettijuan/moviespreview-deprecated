@@ -2,6 +2,7 @@ package com.jpp.moviespreview.ui
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.jpp.moviespreview.ui.model.Movie
 import com.jpp.moviespreview.ui.model.MoviesConfiguration
 
 /**
@@ -14,45 +15,28 @@ import com.jpp.moviespreview.ui.model.MoviesConfiguration
  * Created by jpp on 6/19/17.
  */
 class MoviesContext constructor() : Parcelable {
-
     var moviesConfiguration: MoviesConfiguration? = null
-
-    /**
-     * Private constructor for Parcelable implementation.
-     *
-     * Note that ` : this()` is how we declare a secondary constructor in Kotlin.
-     */
-    private constructor(source: Parcel?) : this() {
-        moviesConfiguration = source?.readParcelable(MoviesConfiguration::class.java.classLoader)
-    }
+    var movies: MutableList<Movie> = mutableListOf()
 
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeParcelable(moviesConfiguration, flags)
+    constructor(source: Parcel) : this() {
+        moviesConfiguration = source.readParcelable(MoviesConfiguration::class.java.classLoader)
+        movies = mutableListOf()
+        source.readTypedList<Movie>(movies, Movie.CREATOR)
     }
 
     override fun describeContents() = 0
 
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeParcelable(moviesConfiguration, flags)
+        dest.writeTypedList<Movie>(movies)
+    }
+
 
     companion object {
-
-        val EXTRA_KEY = "movies_context_key"
-
-        /**
-         * Way of creating the CREATOR field requested by Parcelable contract.
-         *
-         * the annotation @JvmField indicates to the compiler that does not generate getter and
-         * setter for this property.
-         */
-        @JvmField final val CREATOR: Parcelable.Creator<MoviesContext> = object : Parcelable.Creator<MoviesContext> {
-            override fun createFromParcel(source: Parcel?): MoviesContext {
-                return MoviesContext(source)
-            }
-
-            override fun newArray(size: Int): Array<MoviesContext?> {
-                return arrayOfNulls(size)
-            }
-
+        @JvmField val CREATOR: Parcelable.Creator<MoviesContext> = object : Parcelable.Creator<MoviesContext> {
+            override fun createFromParcel(source: Parcel): MoviesContext = MoviesContext(source)
+            override fun newArray(size: Int): Array<MoviesContext?> = arrayOfNulls(size)
         }
     }
 }

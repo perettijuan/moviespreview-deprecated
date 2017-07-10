@@ -1,6 +1,5 @@
 package com.jpp.moviespreview.ui.mvp
 
-import android.os.Bundle
 import android.support.annotation.CallSuper
 import com.jpp.moviespreview.domain.UseCaseFactory
 import com.jpp.moviespreview.ui.MoviesContext
@@ -17,10 +16,11 @@ import java.lang.ref.WeakReference
  */
 abstract class BasePresenter<T : PresentingView>(val useCaseFactory: UseCaseFactory) {
 
+
     // weak reference to the view instance - it can be null
     private var mViewRef: WeakReference<T>? = null
 
-    lateinit var mContext: MoviesContext
+    var mContext = MoviesContext()
 
     /**
      * Links the provided PresentingView instance to this presenter.
@@ -29,15 +29,6 @@ abstract class BasePresenter<T : PresentingView>(val useCaseFactory: UseCaseFact
     @CallSuper
     open fun linkView(viewInstance: T) {
         mViewRef = WeakReference(viewInstance)
-    }
-
-
-    /**
-     * Called at the beginning of the flow to initialize the Presenter.
-     */
-    @CallSuper
-    open fun init(savedInstanceState: Bundle?) {
-        mContext = savedInstanceState?.getParcelable(MoviesContext.Companion.EXTRA_KEY) ?: MoviesContext()
     }
 
 
