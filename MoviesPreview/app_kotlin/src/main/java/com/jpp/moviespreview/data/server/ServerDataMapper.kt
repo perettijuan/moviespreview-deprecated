@@ -1,7 +1,8 @@
 package com.jpp.moviespreview.data.server
 
-import com.jpp.moviespreview.domain.model.ImagesConfiguration as ModelImagesConfiguration
-import com.jpp.moviespreview.domain.model.MoviesConfiguration as ModelMoviesConfiguration
+
+import com.jpp.moviespreview.data.model.ImagesConfiguration as DataImagesConfiguration
+import com.jpp.moviespreview.data.model.MoviesConfiguration as DataMoviesConfiguration
 import com.jpp.moviespreview.domain.model.MoviePage as ModelMoviePage
 import com.jpp.moviespreview.domain.model.Movie as ModelMovie
 
@@ -17,11 +18,11 @@ class ServerDataMapper {
      * Converts the MoviesConfiguration from data to model class.
      */
     fun convertMoviesConfigurationFromDataModel(dataMoviesConfiguration: MoviesConfiguration) = with(dataMoviesConfiguration) {
-        ModelMoviesConfiguration(convertImagesConfigurationFromDataModel(dataMoviesConfiguration.images))
+        DataMoviesConfiguration(convertImagesConfigurationFromDataModel(dataMoviesConfiguration.images))
     }
 
     private fun convertImagesConfigurationFromDataModel(imagesConfiguration: ImagesConfiguration) = with(imagesConfiguration) {
-        ModelImagesConfiguration(base_url, poster_sizes)
+        DataImagesConfiguration(base_url, poster_sizes)
     }
 
 

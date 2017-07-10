@@ -1,6 +1,7 @@
 package com.jpp.moviespreview.data.repository.configuration
 
-import com.jpp.moviespreview.domain.model.MoviesConfiguration
+import com.jpp.moviespreview.data.model.MoviesConfiguration
+
 
 /**
  * Repository definition for MoviesConfigurations
