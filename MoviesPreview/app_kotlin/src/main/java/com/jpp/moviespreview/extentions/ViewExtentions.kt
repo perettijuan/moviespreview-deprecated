@@ -4,6 +4,9 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 
 /**
  * Contains all the extension functions for View class (and subclasses)
@@ -47,4 +50,17 @@ private class EndlessScrollListener(val threshold: Int,
             }
         }
     }
+}
+
+fun ImageView.loadUrl(url: String) {
+//    Glide.with(context)
+//            .load(url)
+//            .override(width, height)
+//            .fitCenter()
+//            .into(this)
+
+    Picasso.with(context)
+            .load(url)
+            .fit()
+            .into(this)
 }

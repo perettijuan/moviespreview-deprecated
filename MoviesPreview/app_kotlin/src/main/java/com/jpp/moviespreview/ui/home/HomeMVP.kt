@@ -67,7 +67,7 @@ class HomePresenter(useCaseFactory: UseCaseFactory) : BasePresenter<HomeView>(us
             if (it != null) {
                 // update the page
                 mCurrentPage = ++it.page
-                val moviesPage = DomainToUiMapper().convertMoviesFromDomainModel(it.movies)
+                val moviesPage = DomainToUiMapper().convertMoviesFromDomainModel(it.movies, mContext.moviesConfiguration!!.imagesConfiguration)
                 mContext.movies.addAll(moviesPage)
                 getView()?.showMoviesPage(moviesPage)
             } else {

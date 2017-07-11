@@ -67,6 +67,9 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.7'
     provided 'javax.annotation:jsr250-api:1.0'
 
+    // for Picasso
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
 
     // for JUnit tests
     testCompile 'junit:junit:4.12'

@@ -23,14 +23,15 @@ class DomainToUiMapper {
     }
 
 
-    fun convertMoviesFromDomainModel(modelMovies: List<ModelMovie>): List<Movie> {
+    fun convertMoviesFromDomainModel(modelMovies: List<ModelMovie>, imagesConfiguration: ImagesConfiguration): List<Movie> {
         return modelMovies.map {
             movie ->
-            convertMovieFromDomainModel(movie)
+            convertMovieFromDomainModel(movie, imagesConfiguration)
         }
     }
 
-    private fun convertMovieFromDomainModel(movie: ModelMovie) = with(movie) {
-        Movie(genreIds, id, title, popularity, releaseDate, posterPath, overview, voteAverage, voteCount, backdropPath)
+    private fun convertMovieFromDomainModel(movie: ModelMovie, imagesConfiguration: ImagesConfiguration) = with(movie) {
+        val posterUrl = imagesConfiguration.baseUrl + imagesConfiguration.defaultPosterSize() + posterPath
+        Movie(genreIds, id, title, popularity, releaseDate, posterUrl, overview, voteAverage, voteCount, backdropPath)
     }
 }
