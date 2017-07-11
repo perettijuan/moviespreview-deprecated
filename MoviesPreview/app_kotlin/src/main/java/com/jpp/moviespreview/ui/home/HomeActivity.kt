@@ -1,6 +1,7 @@
 package com.jpp.moviespreview.ui.home
 
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.jpp.moviespreview.R
 import com.jpp.moviespreview.extentions.endlessScrolling
@@ -23,7 +24,9 @@ class HomeActivity : BasePresenterActivity<HomeView, HomePresenter>(), HomeView 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home_activity)
-        rv_movies.layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
+        rv_movies.layoutManager = layoutManager
+        rv_movies.addItemDecoration(DividerItemDecoration(this, layoutManager.orientation))
         rv_movies.adapter = adapter
         rv_movies.endlessScrolling({ getPresenter().getNextMoviesPage() })
     }

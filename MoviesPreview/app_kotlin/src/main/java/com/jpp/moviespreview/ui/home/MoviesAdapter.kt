@@ -38,6 +38,8 @@ class MoviesAdapter(val moviesList: MutableList<Movie> = mutableListOf()) : Recy
         fun bindMovie(movie: Movie) {
             with(movie) {
                 itemView.txt_movie_title.text = movie.title
+                itemView.txt_popularity.text = movie.popularity.toString()
+                itemView.txt_vote_count.text = movie.voteCount.toString()
             }
         }
 
