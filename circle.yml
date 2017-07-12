@@ -12,6 +12,8 @@ dependencies:
 test:
   override:
 
+    - cd MoviesPreview
+    
     - ls
 
     # Build the code
