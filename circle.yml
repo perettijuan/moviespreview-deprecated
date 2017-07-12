@@ -12,7 +12,7 @@ dependencies:
 test:
   override:
 
-    - echo pwd
+    - ls
 
     # Build the code
     - ./gradlew app_kotlin:assembleDebug
