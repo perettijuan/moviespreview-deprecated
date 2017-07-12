@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 
 /**
@@ -39,10 +38,10 @@ private class EndlessScrollListener(val threshold: Int,
     override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
 
-        // only works with linear layout managers
-        val layoutManager = recyclerView?.layoutManager as? LinearLayoutManager ?: return
-
         if (dy > 0) {
+            // only works with linear layout managers
+            val layoutManager = recyclerView?.layoutManager as? LinearLayoutManager ?: return
+
             val visibleItemCount = layoutManager.childCount
             val pastVisibleItems = layoutManager.findFirstCompletelyVisibleItemPosition()
             if ((visibleItemCount + pastVisibleItems) >= recyclerView.adapter.itemCount - threshold) {
@@ -53,14 +52,10 @@ private class EndlessScrollListener(val threshold: Int,
 }
 
 fun ImageView.loadUrl(url: String) {
-//    Glide.with(context)
-//            .load(url)
-//            .override(width, height)
-//            .fitCenter()
-//            .into(this)
-
-    Picasso.with(context)
+    // TODO review image size
+    Picasso.with(context.applicationContext)
             .load(url)
             .fit()
+            .centerCrop()
             .into(this)
 }

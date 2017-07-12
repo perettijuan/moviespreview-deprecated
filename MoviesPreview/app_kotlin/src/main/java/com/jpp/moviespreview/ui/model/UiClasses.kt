@@ -16,7 +16,7 @@ data class ImagesConfiguration(val baseUrl: String, val sizes: List<String>) : P
 
     constructor(source: Parcel) : this(source.readString(), source.createStringArrayList())
 
-    fun defaultPosterSize() = sizes[sizes.size - 2]
+    fun defaultPosterSize() = sizes[sizes.size - 1]
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(baseUrl)
