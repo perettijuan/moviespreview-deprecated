@@ -1,0 +1,19 @@
+## Gradle opts
+machine:
+  environment:
+    _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+
+
+## Customize dependencies
+dependencies:
+  pre:
+     - echo "y" | android update sdk --no-ui --all --filter tools,build-tools-25.0.3,android-25,extra-google-m2repository,extra-google-google_play_services,extra-android-m2repository
+  post:
+      - ./gradlew assembleVanillaDebug assembleVanillaDebugAndroidTest -PdisablePreDex
+  test:
+    override:
+      - ./gradlew testVanillaDebugUnitTest -PdisablePreDex
+  post:
+      - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+      - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
