@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.jpp.moviespreview.R
 import com.jpp.moviespreview.extentions.ctx
-import com.jpp.moviespreview.extentions.loadUrl
 import com.jpp.moviespreview.ui.model.Movie
 import kotlinx.android.synthetic.main.movie_item.view.*
 
@@ -41,7 +40,7 @@ class MoviesAdapter(val moviesList: MutableList<Movie> = mutableListOf()) : Recy
                 itemView.txt_movie_title.text = movie.title
                 itemView.txt_popularity.text = movie.popularity.toString()
                 itemView.txt_vote_count.text = movie.voteCount.toString()
-                itemView.iv_movie_poster.loadUrl(movie.posterPath)
+                itemView.iv_movie_poster.setImageURI(movie.posterPath)
             }
         }
 

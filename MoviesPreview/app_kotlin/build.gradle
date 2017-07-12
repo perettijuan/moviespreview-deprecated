@@ -17,6 +17,7 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true  // this line will solve this problem
 
     }
     buildTypes {
@@ -67,8 +68,8 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.7'
     provided 'javax.annotation:jsr250-api:1.0'
 
-    // for Picasso
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    // for Fresco
+    compile 'com.facebook.fresco:fresco:1.3.0'
 
 
     // for JUnit tests

@@ -4,8 +4,6 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ImageView
-import com.squareup.picasso.Picasso
 
 /**
  * Contains all the extension functions for View class (and subclasses)
@@ -49,13 +47,4 @@ private class EndlessScrollListener(val threshold: Int,
             }
         }
     }
-}
-
-fun ImageView.loadUrl(url: String) {
-    // TODO review image size
-    Picasso.with(context.applicationContext)
-            .load(url)
-            .fit()
-            .centerCrop()
-            .into(this)
 }

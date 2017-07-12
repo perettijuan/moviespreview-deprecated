@@ -1,6 +1,7 @@
 package com.jpp.moviespreview.ui
 
 import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.jpp.moviespreview.data.DataLayerFactory
 import com.jpp.moviespreview.data.DataLayerModule
 import com.jpp.moviespreview.domain.DomainLayerModule
@@ -41,6 +42,7 @@ class MoviesPreviewApp : Application() {
     override fun onCreate() {
         super.onCreate()
         component.inject(this)
+        Fresco.initialize(this)
     }
 
     /**
