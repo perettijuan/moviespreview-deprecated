@@ -11,6 +11,9 @@ dependencies:
      - echo "y" | android update sdk --no-ui --all --filter tools,build-tools-25.0.3,android-25,extra-google-m2repository,extra-google-google_play_services,extra-android-m2repository
 test:
   override:
+
+    - echo pwd
+
     # Build the code
     - ./gradlew app_kotlin:assembleDebug
 
