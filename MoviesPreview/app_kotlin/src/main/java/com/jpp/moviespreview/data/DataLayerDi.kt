@@ -40,6 +40,7 @@ class DataLayerModule {
  */
 interface DataLayerFactory {
 
+
     fun getConfigurationRepository(): ConfigurationRepository
 
     fun getMoviesRepository(): MoviesRepository
