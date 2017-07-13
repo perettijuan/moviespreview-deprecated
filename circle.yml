@@ -15,7 +15,7 @@ test:
     - ls
 
     # Build the code
-    - cd MoviesPreview && ./gradlew app_kotlin:assembleDebug
+    - cd MoviesPreview && gradlew app_kotlin:assembleDebug
 
     # Execute Unit Tests
-    - cd MoviesPreview && ./gradlew app_kotlin:test
+    - cd MoviesPreview && gradlew app_kotlin:test
