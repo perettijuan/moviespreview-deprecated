@@ -23,7 +23,7 @@
  test:
    pre:
     # start the emulator
-    - emulator -avd circleci-android25 -no-skin -no-audio -no-window -no-boot-anim:
+    - emulator -avd circleci-android25 -no-skin -no-window -no-boot-anim:
         background: true
         parallel: true
 
