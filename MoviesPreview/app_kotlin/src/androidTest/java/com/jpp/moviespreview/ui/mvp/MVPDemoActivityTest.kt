@@ -4,6 +4,7 @@ import android.support.test.espresso.Espresso.*
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import com.jpp.moviespreview.OrientationChangeAction
+import com.jpp.moviespreview.core.mvp.MVPDemoActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.Assert.assertEquals
@@ -24,6 +25,6 @@ class MVPDemoActivityTest {
         onView(isRoot()).perform(OrientationChangeAction.orientationPortrait())
 
         assertEquals(6, activityRule.activity.getPresenterInstance().links)
-        assertEquals(6, activityRule.activity.getPresenterInstance().unlinks)
+        assertEquals(5, activityRule.activity.getPresenterInstance().unlinks)
     }
 }
