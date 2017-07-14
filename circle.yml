@@ -21,6 +21,12 @@
      - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies || true
 
  test:
+   pre:
+    # start the emulator
+    - emulator -avd circleci-android25 -no-skin -no-audio -no-window -no-boot-anim:
+        background: true
+        parallel: true
+
    override:
 
      # Build the code
@@ -28,3 +34,6 @@
 
      # Execute Unit Tests
      - cd MoviesPreview && ./gradlew app_kotlin:test
+
+     # Execute Device Tests
+     - cd MoviesPreview && ./gradlew app_kotlin:connectedAndroidTest
