@@ -1,18 +1,21 @@
 ## Gradle opts
-machine:
-  environment:
-    _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
-    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+ machine:
+   environment:
+     _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
+     ANDROID_HOME: /usr/local/android-sdk-linux
+     GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
 
+ dependencies:
+   pre:
+     - echo y | android update sdk --no-ui --all --filter tools,platform-tools,android-25
+     - echo y | android update sdk --no-ui --all --filter build-tools-25.0.3
+     - echo y | android update sdk --no-ui --all --filter android-25
+     - echo y | android update sdk --no-ui --all --filter tools
+     - echo y | android update sdk --no-ui --all --filter extra-android-m2repository
+     - echo y | android update sdk --no-ui --all --filter extra-android-support
+     - echo y | android update sdk --no-ui --all --filter extra-google-google_play_services
+     - echo y | android update sdk --no-ui --all --filter extra-google-m2repository
+     - echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.0-beta4"
 
-## Customize dependencies
-test:
-  pre:
-    - echo "y" | android update sdk --no-ui --all --filter tools,build-tools-25.0.3,android-25,extra-google-m2repository,extra-google-google_play_services,extra-android-m2repository
-  override:
-
-    # Build the code
-    - echo "y" | cd MoviesPreview && ./gradlew app_kotlin:assembleDebug
-
-    # Execute Unit Tests
-    - echo "y" | cd MoviesPreview && ./gradlew app_kotlin:test
+   override:
+     - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies || true
