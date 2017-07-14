@@ -20,4 +20,10 @@
    override:
      - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies || true
 
-  
+ test:
+   override:
+     # Build the code
+    - ./gradlew app:assembleDebug
+
+    # Execute Unit Tests
+    - ./gradlew app:test
