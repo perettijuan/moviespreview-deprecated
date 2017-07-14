@@ -20,11 +20,11 @@
    override:
      - ANDROID_HOME=/usr/local/android-sdk-linux ./gradlew dependencies || true
 
-test:
-  override:
+ test:
+   override:
 
-    # Build the code
-    - cd MoviesPreview && ./gradlew app_kotlin:assembleDebug
+     # Build the code
+     - cd MoviesPreview && ./gradlew app_kotlin:assembleDebug
 
-    # Execute Unit Tests
-    - cd MoviesPreview && ./gradlew app_kotlin:test
+     # Execute Unit Tests
+     - cd MoviesPreview && ./gradlew app_kotlin:test
