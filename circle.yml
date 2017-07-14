@@ -12,7 +12,7 @@ test:
   override:
 
     # Build the code
-    - cd MoviesPreview && ./gradlew app_kotlin:assembleDebug
+    - echo "y" | cd MoviesPreview && ./gradlew app_kotlin:assembleDebug
 
     # Execute Unit Tests
-    - cd MoviesPreview && ./gradlew app_kotlin:test
+    - echo "y" | cd MoviesPreview && ./gradlew app_kotlin:test
