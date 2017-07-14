@@ -37,3 +37,6 @@
 
      # Execute Device Tests
      - cd MoviesPreview && ./gradlew app_kotlin:connectedAndroidTest
+
+     # ensure that the emulator is ready to use
+    - circle-android wait-for-boot
