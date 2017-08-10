@@ -42,6 +42,6 @@
      - cd MoviesPreview && ./gradlew app_kotlin:connectedAndroidTest
 
      # copy test results
-    - mv MoviesPreview/app_kotlin/build/reports/tests/testDebugUnitTest/ $CIRCLE_TEST_REPORTS/AppUnitTests
-    - mv appCt/build/test-report $CIRCLE_TEST_REPORTS/ComponentTests
-    - mv appIt/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/AndroidTests
+    - cp MoviesPreview/app_kotlin/build/reports/tests/testDebugUnitTest/ $CIRCLE_TEST_REPORTS/AppUnitTests
+    - cp MoviesPreview/app_kotlin/build/test-results/testDebugUnitTest/ $CIRCLE_TEST_REPORTS/ComponentTests
+    - cp MoviesPreview/app_kotlin/build/reports/androidTests/connected $CIRCLE_TEST_REPORTS/AndroidTests
