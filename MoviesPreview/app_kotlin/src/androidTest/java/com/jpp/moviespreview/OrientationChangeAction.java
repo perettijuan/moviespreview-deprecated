@@ -36,7 +36,6 @@ public class OrientationChangeAction implements ViewAction {
         uiController.loopMainThreadUntilIdle();
         final Activity activity = (Activity) view.getContext();
         activity.setRequestedOrientation(orientation);
-
     }
 
     public static ViewAction orientationLandscape() {

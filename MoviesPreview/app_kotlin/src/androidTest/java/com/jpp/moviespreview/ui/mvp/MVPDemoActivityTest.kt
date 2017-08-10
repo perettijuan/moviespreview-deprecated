@@ -19,12 +19,8 @@ class MVPDemoActivityTest {
     @Test fun rotate_several_times() {
         onView(isRoot()).perform(OrientationChangeAction.orientationLandscape())
         onView(isRoot()).perform(OrientationChangeAction.orientationPortrait())
-        onView(isRoot()).perform(OrientationChangeAction.orientationLandscape())
-        onView(isRoot()).perform(OrientationChangeAction.orientationPortrait())
-        onView(isRoot()).perform(OrientationChangeAction.orientationLandscape())
-        onView(isRoot()).perform(OrientationChangeAction.orientationPortrait())
 
-        assertEquals(6, activityRule.activity.getPresenterInstance().links)
-        assertEquals(5, activityRule.activity.getPresenterInstance().unlinks)
+        assertEquals(2, activityRule.activity.getPresenterInstance().links)
+        assertEquals(1, activityRule.activity.getPresenterInstance().unlinks)
     }
 }
