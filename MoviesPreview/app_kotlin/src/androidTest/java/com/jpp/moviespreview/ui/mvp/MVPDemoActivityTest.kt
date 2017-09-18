@@ -10,14 +10,11 @@ import com.jpp.moviespreview.core.mvp.MVPDemoActivity
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.Timeout
 import java.util.concurrent.CountDownLatch
 
 class MVPDemoActivityTest {
 
     @get:Rule val activityRule = ActivityTestRule(MVPDemoActivity::class.java)
-
-    @get:Rule val mPerTestTimeout = Timeout.seconds(30)
 
     /**
      * Just check that activity rotated several times updates correctly the presenter
