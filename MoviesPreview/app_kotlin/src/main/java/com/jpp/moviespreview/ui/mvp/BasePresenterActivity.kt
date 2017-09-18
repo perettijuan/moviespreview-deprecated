@@ -28,15 +28,17 @@ abstract class BasePresenterActivity<V : PresentingView, out T : BasePresenter<V
         stateFragment.mPresenter = presenter
     }
 
-    override fun onStart() {
-        super.onStart()
+
+    override fun onResume() {
+        super.onResume()
         getPresenter().linkView(getView())
     }
 
-    override fun onStop() {
+    override fun onPause() {
         getPresenter().unlinkView(getView())
-        super.onStop()
+        super.onPause()
     }
+
 
     /**
      * Lookup for the StateFragment: First it attempts to retrieve it from the stack.
